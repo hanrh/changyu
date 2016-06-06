@@ -9,5 +9,9 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
     <dubbo:service interface="org.breezee.sysmgr.api.service.IEnumService" ref="enumService" protocol="dubbo"/>
+    <dubbo:service interface="org.breezee.sysmgr.api.service.IAccountService" ref="accountService" protocol="dubbo"/>
+    <dubbo:service interface="org.breezee.sysmgr.api.service.IOrganizationService" ref="organizationService"
+                   protocol="dubbo"/>
+    <dubbo:service interface="org.breezee.sysmgr.api.service.IRoleService" ref="roleService" protocol="dubbo"/>
 
 </beans>

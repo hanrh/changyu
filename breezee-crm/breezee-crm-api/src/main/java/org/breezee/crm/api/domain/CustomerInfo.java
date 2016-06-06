@@ -16,11 +16,6 @@ import java.util.List;
 public class CustomerInfo extends BizInfo {
 
     /**
-     * 客户的组织信息
-     */
-    protected List<CustomerOrgInfo> orgInfoList;
-
-    /**
      * 客户类型
      */
     protected Integer customerType = CustomerTypeEnum.NORMAL.getValue();
@@ -84,6 +79,11 @@ public class CustomerInfo extends BizInfo {
      * 客户级别
      */
     protected Integer rank = CustomerRankEnum.GENERAL.getValue();
+
+    /**
+     * 客户的组织信息
+     */
+    protected List<CustomerOrgInfo> orgInfoList;
 
     public Integer getCustomerType() {
         return customerType;

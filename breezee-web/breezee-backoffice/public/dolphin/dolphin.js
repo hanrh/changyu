@@ -24,7 +24,7 @@
 			formatterRequestData: null,
 			originalPath: "/data",
 			mockPath: "/mockData",
-			returnMsgKey: 'returnMsg'
+			returnMsgKey: 'msg'
 		},
 		compare: function (a, b) {
 			return a == b;
@@ -940,7 +940,7 @@
 
 	Dolphin.i18n.get = function (key) {
         var language = this.defaults.defaultLang;
-        var template = Dolphin.messages[language][key],
+		var template = Dolphin.messages[language] && Dolphin.messages[language][key],
             i, str;
 
 		if (template) {
@@ -976,7 +976,6 @@
 
 		return this;
 	}
-
 	I18N_BOX.defaults = {
 		//required
 		panel: null,								//
@@ -1002,6 +1001,7 @@
 		//event
 		onChange: null												//function(lang, value, thisInput)
 	};
+
 
 
 	I18N_BOX.prototype = {
@@ -2378,7 +2378,6 @@
 
 		return this;
 	}
-
 	PAGINATION.defaults = {
 		panel: "",								        //生成区别，遵循jQuery选择器规则
 		pageSize: 10,										//每页条数
@@ -2394,6 +2393,7 @@
 		onChangePageNumber: null,
 		onChange: null
 	};
+
 
 
 	PAGINATION.prototype = {
@@ -2581,7 +2581,6 @@
 			this.load();
 		}
 	}
-
 	LIST.defaults = {
 		id: null,											//随机id
 		panel: "#planList",								//生成区别，遵循jQuery选择器规则
@@ -2821,6 +2820,7 @@
 					'rowspan': column.rowspan,
 					'colspan': column.colspan
 				}).html(column.title || column.code).appendTo(panel);
+				th.css('text-align', column.textAlign || 'left');
 				if (column.hidden) {
 					th.addClass('hiddenCol');
 				}
@@ -2866,7 +2866,6 @@
 					}).appendTo(th);
 				}
 			}
-
 			header.forEach(function (headers, i) {
 				var panel;
 				if (i == 0) {
@@ -3446,7 +3445,6 @@
 	function TREE(param) {
 		this.init(param);
 	}
-
 	TREE.defaults = {
 		id: null,	//随机id
 		url: null,
@@ -4296,7 +4294,6 @@
 			this.load();
 		}
 	}
-
 	GRID.defaults = {
 		id: null,											//生成随机id
 		panel: "#planList",
@@ -4566,7 +4563,6 @@
 			}
 		}
 	}
-
 	TEMPLATE_GRID.defaults = {
 		panel: "#productList",
 		url: null,
@@ -4794,7 +4790,6 @@
 	function REFWIN(param) {
 		this.init(param);
 	}
-
 	REFWIN.defaults = {
 		id: "myModal",
 		className: "",

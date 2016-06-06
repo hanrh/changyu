@@ -22,6 +22,10 @@ public class CustomerEntity extends BaseEntity<CustomerEntity, CustomerInfo> {
 
     private Set<CustomerOrgEntity> orgEntitySet;
 
+    private Set<CustomerDlgEntity> dlgEntitySet;
+
+    private Set<UserEntity> userEntitySet;
+
     /**
      * 客户类型
      */
@@ -90,17 +94,17 @@ public class CustomerEntity extends BaseEntity<CustomerEntity, CustomerInfo> {
     @Id
     @GeneratedValue(generator = "assigned-uid")
     @GenericGenerator(name = "assigned-uid", strategy = "assigned")
-    @Column(name = "PK_ID", unique = true, nullable = false, updatable = false, length = 64)
+    @Column(name = "CUS_ID", unique = true, nullable = false, updatable = false, length = 64)
     public String getId() {
         return id;
     }
 
-    @Column(name = "CODE", unique = true, nullable = false, updatable = false, length = 64)
+    @Column(name = "CUS_CODE", unique = true, nullable = false, updatable = false, length = 64)
     public String getCode() {
         return code;
     }
 
-    @Column(name = "NAME", nullable = false, length = 2000)
+    @Column(name = "CUS_NAME", nullable = false, length = 2000)
     public String getName() {
         return name;
     }
@@ -150,7 +154,7 @@ public class CustomerEntity extends BaseEntity<CustomerEntity, CustomerInfo> {
         return this.status;
     }
 
-    @Column(name = "CUSTOMER_TYPE", nullable = false)
+    @Column(name = "CUS_TYPE", nullable = false)
     public Integer getCustomerType() {
         return customerType;
     }
@@ -275,5 +279,25 @@ public class CustomerEntity extends BaseEntity<CustomerEntity, CustomerInfo> {
 
     public void setOrgEntitySet(Set<CustomerOrgEntity> orgEntitySet) {
         this.orgEntitySet = orgEntitySet;
+    }
+
+    @OneToMany(mappedBy = "customer", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OrderBy(value = "company asc")
+    public Set<CustomerDlgEntity> getDlgEntitySet() {
+        return dlgEntitySet;
+    }
+
+    public void setDlgEntitySet(Set<CustomerDlgEntity> dlgEntitySet) {
+        this.dlgEntitySet = dlgEntitySet;
+    }
+
+    @OneToMany(mappedBy = "customer", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OrderBy(value = "code asc")
+    public Set<UserEntity> getUserEntitySet() {
+        return userEntitySet;
+    }
+
+    public void setUserEntitySet(Set<UserEntity> userEntitySet) {
+        this.userEntitySet = userEntitySet;
     }
 }

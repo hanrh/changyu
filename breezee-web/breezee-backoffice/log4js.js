@@ -7,6 +7,8 @@ module.exports = {
         type: 'console'
     }],
     levels: {              //日志级别
-        http: 'debug'
+        default: 'info',
+        http: 'debug',
+        data: 'info'
     }
 };

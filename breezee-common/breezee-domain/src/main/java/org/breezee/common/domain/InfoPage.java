@@ -4,13 +4,14 @@
 
 package org.breezee.common.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 分页对象
  * Created by Silence on 2016/4/15.
  */
-public class InfoPage {
+public class InfoPage implements Serializable {
 
     protected List<Object> content;
 

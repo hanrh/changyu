@@ -6,17 +6,14 @@ package org.breezee.common.framework;
 
 import org.breezee.common.domain.BaseInfo;
 import org.breezee.common.domain.BizInfo;
-import org.springframework.util.StringUtils;
+import org.breezee.common.domain.exception.BreezeeException;
 
-import java.util.UUID;
+import java.util.Date;
 
 /**
  * * 持久实体域：基类
  * 子类方法，继承了父类上的方法，同时也会继承方法上的注解
- *
- * @param <T> 需要解析和转换的类，一般是其子类
- * @param <R> 转换后的类
- *            Created by Silence on 2016/5/5.
+ * Created by Silence on 2016/5/5.
  */
 public class BaseEntity<T extends BaseEntity, R extends BaseInfo> extends BizInfo {
 
@@ -98,10 +95,6 @@ public class BaseEntity<T extends BaseEntity, R extends BaseInfo> extends BizInf
 //        return equipment;
 //    }
 
-    public static void main(String[] args) {
-        System.out.println(UUID.randomUUID().toString().replaceAll("-", ""));
-    }
-
     /**
      * DTO转换
      *
@@ -110,8 +103,20 @@ public class BaseEntity<T extends BaseEntity, R extends BaseInfo> extends BizInf
      * @return 返回传入的info实例
      */
     public R toInfo(R r, String... ignorePro) {
+        if (r == null)
+            return null;
         BeanUtil.beanCopy(this, r, ignorePro);
         return r;
+    }
+
+    public R toInfo(Class<R> cla, String... ignorePro) {
+        try {
+            R r = cla.newInstance();
+            return toInfo(r, ignorePro);
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -121,14 +126,15 @@ public class BaseEntity<T extends BaseEntity, R extends BaseInfo> extends BizInf
      * @param ignorePro 忽略的属性
      * @return 解析后的实体
      */
-    public T parseInfo(R r, String... ignorePro) {
+    public T parseInfo(R r, String... ignorePro) throws BreezeeException {
         //设置最后保存的节点
         r.setNode(SystemTool.getHostName());
-        if (StringUtils.isEmpty(r.getId())) {
-            r.setId(SystemTool.uuid() + "." + r.getNode());
+        r.setUpdateTime(new Date());
+        if (r.getId() == null || r.getId().trim().length() == 0) {
+            r.setId(SystemTool.uuid().replaceAll("-", "") + "@" + r.getNode());
+            r.setCreateTime(new Date());
         }
         BeanUtil.beanCopy(r, this, ignorePro);
         return (T) this;
     }
-
 }

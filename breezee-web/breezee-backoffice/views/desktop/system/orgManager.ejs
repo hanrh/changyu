@@ -3,19 +3,103 @@
         <h1 class="content-title">组织结构</h1>
         <ul class="fl">
             <li>
-                <button class="btn"><i class="anchnet_icon icon_page icon_new"></i><span>新建</span></button>
-            </li>
-            <li>
-                <button class="btn" disabled="disabled"><i class="anchnet_icon icon_page icon_new"></i><span>加入</span>
+                <button class="btn btn-block btn-info newOrg"><i class="fui-plus-circle icon-menu"></i></i>
+                    <span>新建组织</span>
                 </button>
             </li>
             <li>
-                <button class="btn" disabled="disabled"><i
-                            class="anchnet_icon icon_page icon_cirreduce"></i><span>离开</span></button>
+                <button class="btn btn-block btn-success relationAccount"><i
+                            class="anchnet_icon icon_page icon_new"></i><span>组织人员更新</span>
+                </button>
+            </li>
+            <li>
+                <button class="btn btn-block btn-inverse updateOrg"><i
+                            class="anchnet_icon icon_page icon_cirreduce"></i><span>修改组织</span></button>
             </li>
         </ul>
     </div>
 </div>
 <div class="dolphin-col-24 main" id="myContent">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="panel panel-primary box">
+                <div class="panel-heading box-title">
+                    <h3 class="panel-title">
+                        <i class="fa fa-table fa-lg" aria-hidden="true"></i>
+                        组织树
+                    </h3>
+                </div>
+                <div id="orgTree"></div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="panel panel-success" id="enum_option">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <i class="fa fa-list fa-lg" aria-hidden="true"></i>
+                        组织人员
+                    </h3>
+                </div>
+                <div id="accountList"></div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="modal" id="org_win">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <span class="modal-title">组织维护</span>
+            </div>
+            <div class="modal-body">
+                <div class="tab-pane">
+                    <form class="form-horizontal edit-form">
+                        <input type="hidden" class="form-control" name="id">
+                        <input type="hidden" name="type" value="1">
+                        <div class="form-group">
+                            <label class="col-md-offset-1 col-md-2 control-label">组织名称</label>
+                            <div class="col-md-6">
+                                <input class="form-control" name="name" type="text" dol-validate="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-offset-1 col-md-2 control-label">组织编码</label>
+                            <div class="col-md-6">
+                                <input class="form-control" name="code" type="text" dol-validate="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-offset-1 col-md-2 control-label">父级组织</label>
+                            <div class="col-md-6">
+                                <input class="form-control" name="parent.id" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-offset-1 col-md-2 control-label">公司组织</label>
+                            <div class="col-md-6">
+                                <select class="form-control selectpicker" multiple name="company"
+                                        dol-validate="required">
+                                    <option value="3008">3008</option>
+                                    <option value="3011">3011</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn_submit">保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 <script src="<%= global.config.publicPath %>/page/scripts/<%= path %>.js"></script>

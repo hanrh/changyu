@@ -10,6 +10,7 @@ import org.breezee.common.domain.constants.ConstantEnum;
  * 客户类型的枚举值
  * normal: 指普通的经销商客户
  * direct: 类似以D开头的客户
+ * temporary: 一次性客户
  * <p>
  * Created by Silence on 2016/5/11.
  */

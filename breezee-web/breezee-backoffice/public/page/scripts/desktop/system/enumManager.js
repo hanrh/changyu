@@ -9,10 +9,10 @@ $(function () {
          */
         init: function () {
             this.destroy();
+            this._enumList = this.enumList('#enumList');
+            this._enumItemList = this.enumItemList('#enumItemList', false);
+            this._enumWinList = this.enumItemList('#enum_option_list', true);
             this.initEvent();
-            this.enumList('#enumList');
-            this.enumItemList('#enumItemList', false);
-            this.enumItemList('#enum_option_list', true);
         },
         /**
          * 初始化页面事件
@@ -27,12 +27,12 @@ $(function () {
                 var ef = $(".edit-form");
                 if (Dolphin.form.validate(ef)) {
                     var data = Dolphin.form.getValue(ef, '"');
-                    console.log(data);
                     Dolphin.ajax({
-                        url: '/api/crm/user/' + checked[0].id,
+                        url: '/api/5a543d0c5b214d2c855124d15e1fca75',
                         type: Dolphin.requestMethod.PUT,
                         data: Dolphin.json2string(data),
                         onSuccess: function (reData) {
+                            me._enumList.reload();
                             $('#enum_win').modal('hide');
                         }
                     });
@@ -46,25 +46,48 @@ $(function () {
          * @returns {*|LIST}
          */
         enumList: function (panelId) {
+            var me = this;
             $(panelId).empty();
             return new Dolphin.LIST({
                 panel: panelId,
                 idField: 'id',
                 columns: [{
                     code: 'name',
-                    title: '枚举名称'
+                    title: '枚举名称',
+                    textAlign: 'left'
                 }, {
                     code: 'code',
                     title: '枚举编码'
                 }, {
                     code: 'status',
                     title: '是否启用'
+                }, {
+                    code: '',
+                    title: '&nbsp;',
+                    width: '180px',
+                    formatter: function (val, row, index) {
+                        return org.breezee.buttons.edit({
+                                id: row.id
+                            }) + org.breezee.buttons.del({
+                                id: row.id
+                            });
+                    }
                 }],
                 multiple: false,
-                data: {rows: []},
+                ajaxType: Dolphin.requestMethod.POST,
+                url: '/api/aac22aa5817645bf9d351bcd15116841',
                 pagination: false,
                 onClick: function (data, thisRow, event) {
-
+                    me._enumItemList.loadData({rows: data.items});
+                },
+                onLoadSuccess: function () {
+                    org.breezee.buttons.editCallback('5b90151b418f4ceb9469a6b265b0d617', 'id', function (data) {
+                        me._enumWinList.loadData({rows: data.value.items});
+                        $('#enum_win').modal('show');
+                    });
+                    org.breezee.buttons.delCallback('5b90151b418f4ceb9469a6b265b0d617', function () {
+                        me._enumList.reload();
+                    });
                 }
             });
         },

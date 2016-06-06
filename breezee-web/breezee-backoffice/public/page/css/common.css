@@ -105,7 +105,7 @@ body .content {
     height: 32px;
     line-height: 32px;
     padding: 0 10px;
-    width: 90px;
+    min-width: 90px;
 }
 
 .page-header li {
@@ -232,6 +232,40 @@ li {
     background: none repeat scroll 0 0 #368ee0;
 }
 
+.box.satgreen .box-title {
+    background: none repeat scroll 0 0 #56af45;
+    border-color: #56af45 !important;
+}
+
+.box.satgreen .box-content {
+    border-color: #56af45 !important;
+}
+
+.box.yellow .box-title {
+    background: none repeat scroll 0 0 #c49f47;
+    border-color: #c49f47 !important;
+}
+
+.box.yellow .box-content {
+    border-color: #c49f47 !important;
+}
+
+.actions {
+    float: right;
+    margin-right: 3px;
+    margin-top: -24px;
+}
+
+.actions .btn {
+    /*background:none repeat scroll 0 0 #000;*/
+    padding: 5px 9px;
+    color: #fff;
+}
+
+.actions .btn:focus, .btn:hover {
+    color: #1abc9c;
+}
+
 .listFooter .pagination {
     border-radius: 0;
     margin: 0 2px 2px 0;
@@ -248,6 +282,13 @@ li {
 
 .edit-form {
     margin-top: 8px;
+}
+
+.list-table thead tr th {
+    background-color: #f1f4f7;
+    color: #3f444a;
+    font-size: 14px;
+    font-weight: 700;
 }
 
 /********override bootstrap*******/
@@ -279,7 +320,7 @@ li {
     float: left;
     font-size: 17px;
     font-weight: 200;
-    margin: 0.1em 0 0.1em 14px;
+    /*margin: 0.1em 0 0.1em 14px;*/
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -323,8 +364,58 @@ li {
     padding-right: 1px;
 }
 
-.btn {
+.selectpicker.btn-default {
+    background-color: #fff;
+}
+
+/***********btn for table*************/
+.btn.btn-outline {
     padding: 8px;
-    width: 90px;
     border-radius: 1px;
 }
+
+.btn.btn-outline {
+    border: 1px solid;
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    width: 60px;
+    font-size: 12px;
+    margin: 0 10px;
+    padding: 5px 10px;
+}
+
+.btn.btn-outline.purple {
+    border-color: #8e44ad;
+    color: #8e44ad;
+}
+
+.btn.btn-outline.dark {
+    border-color: #2f353b;
+    color: #2f353b;
+}
+
+.btn-circle {
+    border-radius: 25px !important;
+    overflow: hidden;
+}
+
+.btn.btn-outline.purple.active,
+.btn.btn-outline.purple:active,
+.btn.btn-outline.purple:active:focus,
+.btn.btn-outline.purple:active:hover,
+.btn.btn-outline.purple:focus,
+.btn.btn-outline.purple:hover {
+    background-color: #8e44ad;
+    color: #fff;
+}
+
+.btn.btn-outline.dark.active,
+.btn.btn-outline.dark:active,
+.btn.btn-outline.dark:active:focus,
+.btn.btn-outline.dark:active:hover,
+.btn.btn-outline.dark:focus,
+.btn.btn-outline.dark:hover {
+    background-color: #2f353b;
+    border-color: #2f353b;
+    color: #fff;
+}
+

@@ -4,8 +4,8 @@
 
 package org.breezee.crm;
 
+import org.breezee.common.dubbo.start.Startup;
 import org.breezee.common.framework.ContextUtil;
-import org.breezee.common.start.Startup;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;

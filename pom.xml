@@ -62,16 +62,4 @@
         <file_encoding>UTF-8</file_encoding>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <artifactId>slf4j-log4j12</artifactId>
-            <groupId>org.slf4j</groupId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <artifactId>log4j-over-slf4j</artifactId>
-            <groupId>org.slf4j</groupId>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
 </project>

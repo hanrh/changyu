@@ -27,12 +27,17 @@ public class RoleEntity extends BaseEntity<RoleEntity, RoleInfo> {
     @Id
     @GeneratedValue(generator = "assigned-uid")
     @GenericGenerator(name = "assigned-uid", strategy = "assigned")
-    @Column(name = "PK_ID", unique = true, nullable = false, updatable = false, length = 64)
+    @Column(name = "ROLE_ID", unique = true, nullable = false, updatable = false, length = 64)
     public String getId() {
         return id;
     }
 
-    @Column(name = "NAME", nullable = false, length = 2000)
+    @Column(name = "ROLE_CODE", unique = true, nullable = false, updatable = false, length = 64)
+    public String getCode() {
+        return code;
+    }
+
+    @Column(name = "ROLE_NAME", nullable = false, length = 2000)
     public String getName() {
         return name;
     }

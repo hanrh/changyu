@@ -12,6 +12,8 @@ import org.breezee.common.domain.BaseInfo;
  */
 public class CustomerFicoInfo extends BaseInfo {
 
+    protected String customerId;
+
     protected String orgId;
 
     protected String typeCode;
@@ -19,6 +21,14 @@ public class CustomerFicoInfo extends BaseInfo {
     protected String typeName;
 
     protected String ficoCode;
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
 
     public String getOrgId() {
         return orgId;

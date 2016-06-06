@@ -11,5 +11,10 @@ import org.breezee.sysmgr.api.domain.OrganizationInfo;
  * 服务域：组织服务
  * Created by Silence on 2016/5/24.
  */
-public interface IOrganizationService extends IServiceLayer<OrganizationInfo> {
+public interface IOrganizationService<E> extends IServiceLayer<OrganizationInfo, E> {
+
+    @Override
+    default Class<OrganizationInfo> getInfoClass() {
+        return OrganizationInfo.class;
+    }
 }

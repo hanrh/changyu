@@ -11,5 +11,10 @@ import org.breezee.sysmgr.api.domain.RoleInfo;
  * 服务域：角色服务
  * Created by Silence on 2016/5/24.
  */
-public interface IRoleService extends IServiceLayer<RoleInfo> {
+public interface IRoleService<E> extends IServiceLayer<RoleInfo, E> {
+
+    @Override
+    default Class<RoleInfo> getInfoClass() {
+        return RoleInfo.class;
+    }
 }

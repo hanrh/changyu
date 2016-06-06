@@ -5,6 +5,7 @@
 package org.breezee.common.domain;
 
 import org.breezee.common.domain.constants.InfoStatusEnum;
+import org.breezee.common.domain.exception.ValidationException;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,7 +17,10 @@ import java.util.Map;
  * 将被系统内的所有领域对象所继承
  * Created by Silence on 2016/2/6.
  */
-public class BaseInfo implements Serializable, Cloneable, IDumpObject {
+public class BaseInfo implements Serializable,
+        Cloneable,
+        Comparable<BaseInfo>,
+        IDumpObject {
 
     /**
      * 数据主键
@@ -66,7 +70,7 @@ public class BaseInfo implements Serializable, Cloneable, IDumpObject {
     /**
      * 租户ID
      */
-    protected String tenantId;
+    protected String tenantId = "default";
 
     /**
      * 语言
@@ -85,7 +89,7 @@ public class BaseInfo implements Serializable, Cloneable, IDumpObject {
      * 在存入缓存的时候，也可以用来做分页查询
      * 所以我们在保存对象的时候，一定要保证此值的正确性。
      */
-    protected Long rowNum;
+    protected Long rowNum = 0L;
 
     /**
      * 版本，用来实现乐观锁
@@ -101,7 +105,7 @@ public class BaseInfo implements Serializable, Cloneable, IDumpObject {
     /**
      * 扩展属性信息
      */
-    protected Map<String,Object> properties;
+    protected Map<String, Object> properties;
 
     public String getId() {
         return id;
@@ -224,7 +228,7 @@ public class BaseInfo implements Serializable, Cloneable, IDumpObject {
     }
 
     public Map<String, Object> getProperties() {
-        if(properties==null)
+        if (properties == null)
             this.properties = new HashMap<>();
         return properties;
     }
@@ -236,14 +240,15 @@ public class BaseInfo implements Serializable, Cloneable, IDumpObject {
     /**
      * 查询的强类型映射控制。
      * 在子类中实现
+     *
      * @param query 查询的参数集
      * @return 是否允许查询
      */
-    public boolean checkQuery(Map<String,Object> query){
+    public boolean checkQuery(Map<String, Object> query) throws ValidationException {
         //在子类中，强制指定其查询条件。
         //1. 使查询条件强类型
         //2. 安全控制
-        return false;
+        return true;
     }
 
     /**
@@ -257,16 +262,33 @@ public class BaseInfo implements Serializable, Cloneable, IDumpObject {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(this.getId());
-        if(this.code!=null)
-            sb.append(",").append(this.getCode());
+        if (this.id != null)
+            sb.append(this.getId());
+        if (this.code != null) {
+            if (sb.length() > 0)
+                sb.append(",");
+            sb.append(this.getCode());
+        }
         return sb.toString();
     }
 
     @Override
+    public int hashCode() {
+        if (this.getId() == null)
+            return super.hashCode();
+        return this.getId().hashCode() * 37 +
+                (this.getCode() == null ? 0 : this.getCode().hashCode() * 37);
+    }
+
+    @Override
     public void dump() {
-        System.out.println(this.id+"--"+this.code+"--"+this.name+"--"+this.status);
+        System.out.println(this.id + "--" + this.code + "--" + this.name + "--" + this.status);
+    }
+
+    @Override
+    public int compareTo(BaseInfo o) {
+        return 0;
     }
 }

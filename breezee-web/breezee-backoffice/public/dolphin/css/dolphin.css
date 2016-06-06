@@ -406,7 +406,7 @@ form div.form-inline .form-control {
 }
 .dolphin_list > .table > thead > tr > th {
   vertical-align: middle;
-  text-align: center;
+  text-align: left;
 }
 .table tbody tr td.hiddenCol,
 .table thead tr th.hiddenCol {

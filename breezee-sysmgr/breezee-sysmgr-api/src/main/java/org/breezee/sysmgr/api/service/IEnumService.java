@@ -11,5 +11,10 @@ import org.breezee.sysmgr.api.domain.EnumInfo;
  * 服务域： 枚举服务
  * Created by Silence on 2016/5/24.
  */
-public interface IEnumService extends IServiceLayer<EnumInfo> {
+public interface IEnumService<E> extends IServiceLayer<EnumInfo, E> {
+
+    @Override
+    default Class<EnumInfo> getInfoClass() {
+        return EnumInfo.class;
+    }
 }

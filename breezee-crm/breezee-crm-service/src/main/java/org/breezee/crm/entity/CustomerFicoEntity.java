@@ -19,21 +19,21 @@ import javax.persistence.*;
 @Table(name = "CRM_TF_CUSTOMER_FICO")
 public class CustomerFicoEntity extends BaseEntity<CustomerFicoEntity, CustomerFicoInfo> {
 
-    protected String typeCode;
-    protected String typeName;
-    protected String ficoCode;
+    private String typeCode;
+    private String typeName;
+    private String ficoCode;
     private CustomerOrgEntity orgEntity;
 
     @Id
     @GeneratedValue(generator = "assigned-uid")
     @GenericGenerator(name = "assigned-uid", strategy = "assigned")
-    @Column(name = "PK_ID", unique = true, nullable = false, updatable = false, length = 64)
+    @Column(name = "CUS_FICO_ID", unique = true, nullable = false, updatable = false, length = 64)
     public String getId() {
         return id;
     }
 
     @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "CUSTOMER_ORG_ID", nullable = false)
+    @JoinColumn(name = "CUS_ORG_ID", nullable = false)
     public CustomerOrgEntity getOrgEntity() {
         return orgEntity;
     }
@@ -60,7 +60,7 @@ public class CustomerFicoEntity extends BaseEntity<CustomerFicoEntity, CustomerF
         this.typeName = typeName;
     }
 
-    @Column(name = "FICO_CODE", nullable = false)
+    @Column(name = "CUS_FICO_CODE", nullable = false)
     public String getFicoCode() {
         return ficoCode;
     }

@@ -31,3 +31,88 @@ function namespace(namespace) {
     return object;
 }
 namespace("org.breezee");
+
+/**
+ * list空间中的一些util方法
+ * @type {{edit: org.breezee.buttons.edit, del: org.breezee.buttons.del, editCallback: org.breezee.buttons.editCallback, delCallback: org.breezee.buttons.delCallback}}
+ */
+org.breezee.buttons = {
+    /**
+     * 创建编辑按钮，在list中
+     * @param data
+     * @param callback
+     * @returns {string}
+     */
+    edit: function (data, callback) {
+        var s = '<a class="btn btn-outline btn-circle btn-sm purple editBtn" ';
+        if (data) {
+            for (var k in data) {
+                if (data[k])
+                    s += 'data-' + k + '="' + data[k] + '"';
+            }
+        }
+        s += ' href="javascript:;"><i class="fa fa-edit"></i>编辑</a>';
+        return s;
+    },
+    /**
+     * 创建删除按钮，在list中
+     * @param data
+     * @param callback
+     * @returns {string}
+     */
+    del: function (data, callback) {
+        var s = '<a class="btn btn-outline btn-circle btn-sm dark delBtn" ';
+        if (data) {
+            for (var k in data) {
+                if (data[k])
+                    s += 'data-' + k + '="' + data[k] + '"';
+            }
+        }
+        s += ' href="javascript:;"><i class="fa fa-trash-o"></i>删除</a>';
+        return s;
+    },
+    /**
+     * 编辑按钮的回调
+     * @param apiId
+     * @param field
+     * @param cb
+     */
+    editCallback: function (apiId, field, cb) {
+        $('.editBtn').click(function () {
+            var _this = $(this);
+            Dolphin.ajax({
+                url: '/api/' + apiId + '@' + field + '=' + _this.data(field),
+                type: Dolphin.requestMethod.GET,
+                onSuccess: function (reData) {
+                    Dolphin.form.setValue(reData.value, '.edit-form');
+                    if (cb)
+                        cb.call(this, reData)
+                }
+            });
+        });
+    },
+    /**
+     * 删除按钮的回调
+     * @param apiId
+     * @param cb
+     */
+    delCallback: function (apiId, cb) {
+        $('.delBtn').click(function () {
+            var _this = $(this);
+            Dolphin.confirm('确认删除？', {
+                callback: function (flag) {
+                    if (flag) {
+                        Dolphin.ajax({
+                            url: '/api/' + apiId + '@id=' + _this.data('id'),
+                            type: Dolphin.requestMethod.DELETE,
+                            onSuccess: function (reData) {
+                                if (cb)
+                                    cb.call(this, reData)
+                            }
+                        });
+                    }
+                }
+            })
+        });
+    }
+};

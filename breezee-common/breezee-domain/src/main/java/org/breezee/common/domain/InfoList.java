@@ -13,7 +13,7 @@ import java.util.Collection;
  * 列表对象
  * Created by Silence on 2016/2/12.
  */
-public class InfoList<R> extends ArrayList {
+public class InfoList<R> extends ArrayList<R> {
 
     public <P> InfoList(Collection<P> c, Callback<P, R> callback) {
         super(c.size());

@@ -22,7 +22,7 @@ public class AccountInfo extends BizInfo {
     /**
      * 类型：正式，临时
      */
-    protected Integer type;
+    protected Integer type = 1;
 
     /**
      * 职务
@@ -52,12 +52,12 @@ public class AccountInfo extends BizInfo {
     /**
      * 所属组织
      */
-    protected String orgId;
+    protected OrganizationInfo org;
 
     /**
      * 角色
      */
-    protected Set<String> roles;
+    protected Set<RoleInfo> roles;
 
     public String getPassword() {
         return password;
@@ -115,20 +115,19 @@ public class AccountInfo extends BizInfo {
         this.permits = permits;
     }
 
-    public String getOrgId() {
-        return orgId;
+    public OrganizationInfo getOrg() {
+        return org;
     }
 
-    public void setOrgId(String orgId) {
-        this.orgId = orgId;
+    public void setOrg(OrganizationInfo org) {
+        this.org = org;
     }
 
-    public Set<String> getRoles() {
+    public Set<RoleInfo> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<String> roles) {
+    public void setRoles(Set<RoleInfo> roles) {
         this.roles = roles;
     }
-
 }

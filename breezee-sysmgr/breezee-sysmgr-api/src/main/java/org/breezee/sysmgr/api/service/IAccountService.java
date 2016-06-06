@@ -11,5 +11,10 @@ import org.breezee.sysmgr.api.domain.AccountInfo;
  * 服务域：账号管理服务
  * Created by Silence on 2016/5/5.
  */
-public interface IAccountService extends IServiceLayer<AccountInfo> {
+public interface IAccountService<E> extends IServiceLayer<AccountInfo, E> {
+
+    @Override
+    default Class<AccountInfo> getInfoClass() {
+        return AccountInfo.class;
+    }
 }

@@ -19,12 +19,7 @@ module.exports = {
      */
     send: function (param, callback) {
         if (global.config.mockFlag) {
-            try {
-                var data = require("../mockService" + param.mockData + ".js");
-                callback(null, null, data);
-            } catch (e) {
-                callback(e, null, data);
-            }
+            //TODO: mock框架的优化
         } else {
             var defaultParam = {
                 json: {},
@@ -37,6 +32,15 @@ module.exports = {
             var _param = extend(true, {}, defaultParam, param);
             request(_param, callback);
         }
+    },
+
+    /**
+     * 深度合并对象
+     * @param defaultParam
+     * @param myParam
+     */
+    extend: function (defaultParam, myParam) {
+        return extend(true, {}, defaultParam, myParam);
     },
 
     /**
@@ -91,6 +95,12 @@ module.exports = {
      */
     endType: function (str) {
         return /mobile/.test(str) ? "mobile" : "desktop";
+    },
+
+    endTypeEnum: {
+        desktop: 1,
+        pad: 3,
+        mobile: 5
     },
 
     /**

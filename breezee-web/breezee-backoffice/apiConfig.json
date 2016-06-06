@@ -1,7 +1,14 @@
-/**
- * Created by Shubert.Wang on 2016/6/2.
- */
-
 {
-    "uuid" : "url"
+    "5a543d0c5b214d2c855124d15e1fca75": "http://127.0.0.1:3289/services/enum/",
+    "5b90151b418f4ceb9469a6b265b0d617": "http://127.0.0.1:3289/services/enum/{id}",
+    "aac22aa5817645bf9d351bcd15116841": "http://127.0.0.1:3289/services/enum/list",
+    "dd3bcbbc5b7e4a06b8118ab44395a21d": "http://127.0.0.1:3289/services/auth/checkLogin",
+    "39f139515f18427984e8774c59ba727b": "http://127.0.0.1:3289/services/auth/account",
+    "ae55fd5637d040249574c12f97e11cc9": "http://127.0.0.1:3289/services/auth/organization",
+    "84c3d29503064850a856c830dfb10c23": "http://127.0.0.1:3289/services/auth/role",
+    "3569ed456e5545d5afeece71d333677a": "http://127.0.0.1:3289/services/auth/account/page",
+    "ed040a7849cc400fbf55ec6ec0abf43b": "http://127.0.0.1:3289/services/auth/organization/tree/{parentId}",
+    "50ba94f6b48b4054ba4b90953fe5f365": "http://127.0.0.1:3289/services/auth/role/list",
+    "130552d80d804b7ca37dc9b2fd5365fe": "http://127.0.0.1:3289/services/auth/account/code/{code}",
+    "25274ec2bcc14367be8e57c1f10a58b1": "http://127.0.0.1:3289/services/auth/account/{id}"
 }

@@ -98,8 +98,12 @@ public final class DynamicSpecifications {
                         try {
                             ObjectMapper objectMapper = new ObjectMapper();
                             String k = key.substring(0, (key.length() - 4));
-                            Object v = objectMapper.readValue("{\"id\":" + val.toString() + "}", root.getModel().getAttribute(k).getJavaType());
-                            predicate.add(cb.equal(root.get(k).as(v.getClass()), v));
+                            if (val.toString().equals("-1")) {
+                                predicate.add(cb.isNull(root.get(k).as(root.getModel().getAttribute(k).getJavaType())));
+                            } else {
+                                Object v = objectMapper.readValue("{\"id\":\"" + val.toString() + "\"}", root.getModel().getAttribute(k).getJavaType());
+                                predicate.add(cb.equal(root.get(k).as(v.getClass()), v));
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

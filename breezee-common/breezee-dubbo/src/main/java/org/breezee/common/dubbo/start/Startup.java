@@ -2,7 +2,7 @@
  * Copyright (c) 2016 Breezee.org. All Rights Reserved.
  */
 
-package org.breezee.common.start;
+package org.breezee.common.dubbo.start;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

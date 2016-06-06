@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * 实体域： 客户组织信息
+ * 客户所属的组织会有多公司，所以客户本身也会有多公司
  * <p>
  * Created by Silence on 2016/5/11.
  */

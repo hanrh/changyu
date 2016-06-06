@@ -15,11 +15,7 @@ global.config = require('./config.js');
 global.tool = require('./utils/tool');
 
 log4js.configure(require('./log4js'));
-var logger = log4js.getLogger("http");
-
-var routes = require('./routes/index');
-var viewRoutes = require('./routes/view');
-var dataRoutes = require('./routes/data');
+global.log4js = log4js;
 
 var app = express();
 
@@ -34,7 +30,10 @@ app.set('trust proxy', true);
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 // app.use(logger('dev'));
-app.use(log4js.connectLogger(logger, {level: 'debug', format: ':method | :status | :response-time ms | :url '}));
+app.use(log4js.connectLogger(log4js.getLogger("http"), {
+    level: 'debug',
+    format: ':method | :status | :response-time ms | :url '
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
@@ -47,9 +46,9 @@ app.use(session({
     cookie: {maxAge: 1800000}
 }));
 
-app.use('/', routes);
-app.use('/view', viewRoutes);
-app.use('/api', dataRoutes);
+app.use('/', require('./routes/index'));
+app.use('/view', require('./routes/view'));
+app.use('/api', require('./routes/data'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

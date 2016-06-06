@@ -5,8 +5,11 @@
 package org.breezee.sysmgr.entity;
 
 import org.breezee.common.framework.BaseEntity;
+import org.breezee.common.framework.ContextUtil;
 import org.breezee.sysmgr.api.domain.OrganizationInfo;
+import org.breezee.sysmgr.repository.IOrganizationRepository;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -21,22 +24,26 @@ import java.util.Set;
 @Table(name = "SYM_TF_ORGANIZATION")
 public class OrganizationEntity extends BaseEntity<OrganizationEntity, OrganizationInfo> {
 
+    private OrganizationEntity parent;
+
+    private Set<OrganizationEntity> children;
+
     private Set<AccountEntity> accounts;
 
     @Id
     @GeneratedValue(generator = "assigned-uid")
     @GenericGenerator(name = "assigned-uid", strategy = "assigned")
-    @Column(name = "PK_ID", unique = true, nullable = false, updatable = false, length = 64)
+    @Column(name = "ORG_ID", unique = true, nullable = false, updatable = false, length = 64)
     public String getId() {
         return id;
     }
 
-    @Column(name = "CODE", unique = true, nullable = false, updatable = false, length = 64)
+    @Column(name = "ORG_CODE", unique = true, nullable = false, updatable = false, length = 64)
     public String getCode() {
         return code;
     }
 
-    @Column(name = "NAME", nullable = false, length = 2000)
+    @Column(name = "ORG_NAME", nullable = false, length = 2000)
     public String getName() {
         return name;
     }
@@ -104,5 +111,49 @@ public class OrganizationEntity extends BaseEntity<OrganizationEntity, Organizat
 
     public void setAccounts(Set<AccountEntity> accounts) {
         this.accounts = accounts;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "PARENT_ID", referencedColumnName = "ORG_ID")
+    public OrganizationEntity getParent() {
+        return parent;
+    }
+
+    public void setParent(OrganizationEntity parent) {
+        this.parent = parent;
+    }
+
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    public Set<OrganizationEntity> getChildren() {
+        return children;
+    }
+
+    public void setChildren(Set<OrganizationEntity> children) {
+        this.children = children;
+    }
+
+    public OrganizationEntity parseInfo(OrganizationInfo info, String... ignore) {
+        super.parseInfo(info, "parent", "children");
+        if (info.getParent() != null
+                && StringUtils.hasText(info.getParent().getId())) {
+            this.setParent(ContextUtil.getBean("organizationRepository", IOrganizationRepository.class)
+                    .findOne(info.getParent().getId()));
+        }
+        return this;
+    }
+
+    public OrganizationInfo toInfo(OrganizationInfo info, String... ignore) {
+        super.toInfo(info, "parent", "children");
+        if (this.getParent() != null) {
+            info.setParent(new OrganizationInfo(getParent().getId(), getParent().getCode(), getParent().getName()));
+        }
+//        List<OrganizationInfo> l = new ArrayList<>();
+//        this.getChildren().forEach(a -> {
+//            l.add(new OrganizationInfo(a.getId(), a.getCode(), a.getName()));
+//        });
+//        info.setChildren(l);
+        if (this.getChildren().size() > 0)
+            info.setLeaf(false);
+        return info;
     }
 }

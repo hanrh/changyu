@@ -9,7 +9,6 @@ import org.breezee.sysmgr.api.domain.EnumItemInfo;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * 持久域：枚举行
@@ -24,17 +23,17 @@ public class EnumItemEntity extends BaseEntity<EnumItemEntity, EnumItemInfo> {
     @Id
     @GeneratedValue(generator = "assigned-uid")
     @GenericGenerator(name = "assigned-uid", strategy = "assigned")
-    @Column(name = "PK_ID", unique = true, nullable = false, updatable = false, length = 64)
+    @Column(name = "ENUM_ITEM_ID", unique = true, nullable = false, updatable = false, length = 64)
     public String getId() {
         return id;
     }
 
-    @Column(name = "CODE", unique = true, nullable = false, updatable = false, length = 64)
+    @Column(name = "ENUM_ITEM_CODE", nullable = false, updatable = false, length = 64)
     public String getCode() {
         return code;
     }
 
-    @Column(name = "NAME", nullable = false, length = 2000)
+    @Column(name = "ENUM_ITEM_NAME", nullable = false, length = 2000)
     public String getName() {
         return name;
     }
@@ -42,26 +41,6 @@ public class EnumItemEntity extends BaseEntity<EnumItemEntity, EnumItemInfo> {
     @Column(name = "TENANT_ID", nullable = false, updatable = false, length = 64)
     public String getTenantId() {
         return tenantId;
-    }
-
-    @Column(name = "CREATOR", nullable = false, updatable = false, length = 64)
-    public String getCreator() {
-        return creator;
-    }
-
-    @Column(name = "CREATE_TIME", nullable = false, updatable = false)
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    @Column(name = "UPDATOR", nullable = false, length = 64)
-    public String getUpdator() {
-        return updator;
-    }
-
-    @Column(name = "UPDATE_TIME", nullable = false)
-    public Date getUpdateTime() {
-        return updateTime;
     }
 
     @Column(name = "ROW_NUM", nullable = false)
@@ -80,7 +59,7 @@ public class EnumItemEntity extends BaseEntity<EnumItemEntity, EnumItemInfo> {
     }
 
     @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    @JoinColumn(name = "MASTER_ID")
+    @JoinColumn(name = "ENUM_ID")
     public EnumEntity getMaster() {
         return master;
     }

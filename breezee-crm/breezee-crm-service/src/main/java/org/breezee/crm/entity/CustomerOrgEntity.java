@@ -47,7 +47,7 @@ public class CustomerOrgEntity extends BaseEntity<CustomerOrgEntity, CustomerOrg
     @Id
     @GeneratedValue(generator = "assigned-uid")
     @GenericGenerator(name = "assigned-uid", strategy = "assigned")
-    @Column(name = "PK_ID", unique = true, nullable = false, updatable = false, length = 64)
+    @Column(name = "CUS_ORG_ID", unique = true, nullable = false, updatable = false, length = 64)
     public String getId() {
         return id;
     }
@@ -63,7 +63,7 @@ public class CustomerOrgEntity extends BaseEntity<CustomerOrgEntity, CustomerOrg
     }
 
     @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "CUSTOMER_ID", nullable = false)
+    @JoinColumn(name = "CUS_ID", nullable = false)
     public CustomerEntity getCustomer() {
         return customer;
     }
@@ -72,7 +72,7 @@ public class CustomerOrgEntity extends BaseEntity<CustomerOrgEntity, CustomerOrg
         this.customer = customer;
     }
 
-    @Column(name = "ORG_CODE", nullable = false, length = 64)
+    @Column(name = "CUS_ORG_CODE", nullable = false, length = 64)
     public String getOrgCode() {
         return orgCode;
     }

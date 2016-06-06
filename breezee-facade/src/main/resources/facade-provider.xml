@@ -7,8 +7,15 @@
        xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-    <dubbo:service interface="org.breezee.facade.resource.ISysmgrFacade" ref="sysmgrFacade" protocol="rest"/>
+    <dubbo:service interface="org.breezee.facade.inter.IEnumFacade" ref="enumFacade" protocol="rest"/>
+    <dubbo:service interface="org.breezee.facade.inter.IAuthFacade" ref="authFacade" protocol="rest"/>
 
     <dubbo:reference interface="org.breezee.sysmgr.api.service.IEnumService" id="enumService"
+                     protocol="dubbo" check="false"/>
+    <dubbo:reference interface="org.breezee.sysmgr.api.service.IAccountService" id="accountService"
+                     protocol="dubbo" check="false"/>
+    <dubbo:reference interface="org.breezee.sysmgr.api.service.IOrganizationService" id="organizationService"
+                     protocol="dubbo" check="false"/>
+    <dubbo:reference interface="org.breezee.sysmgr.api.service.IRoleService" id="roleService"
                      protocol="dubbo" check="false"/>
 </beans>

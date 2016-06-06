@@ -27,17 +27,17 @@ public class EnumEntity extends BaseEntity<EnumEntity, EnumInfo> {
     @Id
     @GeneratedValue(generator = "assigned-uid")
     @GenericGenerator(name = "assigned-uid", strategy = "assigned")
-    @Column(name = "PK_ID", unique = true, nullable = false, updatable = false, length = 64)
+    @Column(name = "ENUM_ID", unique = true, nullable = false, updatable = false, length = 64)
     public String getId() {
         return id;
     }
 
-    @Column(name = "CODE", unique = true, nullable = false, updatable = false, length = 64)
+    @Column(name = "ENUM_CODE", unique = true, nullable = false, updatable = false, length = 64)
     public String getCode() {
         return code;
     }
 
-    @Column(name = "NAME", nullable = false, length = 2000)
+    @Column(name = "ENUM_NAME", nullable = false, length = 2000)
     public String getName() {
         return name;
     }
@@ -93,6 +93,7 @@ public class EnumEntity extends BaseEntity<EnumEntity, EnumInfo> {
     }
 
     @OneToMany(mappedBy = "master", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OrderBy("rowNum")
     public Set<EnumItemEntity> getItems() {
         return items;
     }
@@ -106,6 +107,7 @@ public class EnumEntity extends BaseEntity<EnumEntity, EnumInfo> {
         this.items.add(item);
     }
 
+    @Override
     public EnumInfo toInfo(EnumInfo r, String... ignorePro) {
         super.toInfo(r, "items");
         this.getItems().forEach(a -> {

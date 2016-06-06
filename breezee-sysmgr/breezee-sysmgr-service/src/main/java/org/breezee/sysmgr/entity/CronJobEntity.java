@@ -27,17 +27,17 @@ public class CronJobEntity extends BaseEntity<CronJobEntity, CronJobInfo> {
     @Id
     @GeneratedValue(generator = "assigned-uid")
     @GenericGenerator(name = "assigned-uid", strategy = "assigned")
-    @Column(name = "PK_ID", unique = true, nullable = false, updatable = false, length = 64)
+    @Column(name = "CRON_ID", unique = true, nullable = false, updatable = false, length = 64)
     public String getId() {
         return id;
     }
 
-    @Column(name = "CODE", unique = true, nullable = false, updatable = false, length = 64)
+    @Column(name = "CRON_CODE", unique = true, nullable = false, updatable = false, length = 64)
     public String getCode() {
         return code;
     }
 
-    @Column(name = "NAME", nullable = false, length = 2000)
+    @Column(name = "CRON_NAME", nullable = false, length = 2000)
     public String getName() {
         return name;
     }
@@ -92,7 +92,7 @@ public class CronJobEntity extends BaseEntity<CronJobEntity, CronJobInfo> {
         return node;
     }
 
-    @Column(name = "CRONTAB", nullable = false)
+    @Column(name = "CRON_TAB", nullable = false)
     public String getCrontab() {
         return crontab;
     }

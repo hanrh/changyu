@@ -6,10 +6,14 @@ package org.breezee.sysmgr.entity;
 
 import org.breezee.common.framework.BaseEntity;
 import org.breezee.sysmgr.api.domain.AccountInfo;
+import org.breezee.sysmgr.api.domain.OrganizationInfo;
+import org.breezee.sysmgr.api.domain.RoleInfo;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -24,20 +28,32 @@ public class AccountEntity extends BaseEntity<AccountEntity, AccountInfo> {
 
     private Set<RoleEntity> roles;
 
+    private String password;
+
+    private Integer type;
+
+    private String job;
+
+    private Integer sex;
+
+    private String mobile;
+
+    private String email;
+
     @Id
     @GeneratedValue(generator = "assigned-uid")
     @GenericGenerator(name = "assigned-uid", strategy = "assigned")
-    @Column(name = "PK_ID", unique = true, nullable = false, updatable = false, length = 64)
+    @Column(name = "ACN_ID", unique = true, nullable = false, updatable = false, length = 64)
     public String getId() {
         return id;
     }
 
-    @Column(name = "CODE", unique = true, nullable = false, updatable = false, length = 64)
+    @Column(name = "ACN_CODE", unique = true, nullable = false, updatable = false, length = 64)
     public String getCode() {
         return code;
     }
 
-    @Column(name = "NAME", nullable = false, length = 2000)
+    @Column(name = "ACN_NAME", nullable = false, length = 2000)
     public String getName() {
         return name;
     }
@@ -103,8 +119,8 @@ public class AccountEntity extends BaseEntity<AccountEntity, AccountInfo> {
     }
 
     @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    @JoinTable(name = "SYM_TF_ORGANIZATION_ACNT", joinColumns = @JoinColumn(name = "ACNT_ID", referencedColumnName = "PK_ID"),
-            inverseJoinColumns = @JoinColumn(name = "ORG_ID", referencedColumnName = "PK_ID"))
+    @JoinTable(name = "SYM_TF_ORG_ACN", joinColumns = @JoinColumn(name = "ACN_ID", referencedColumnName = "ACN_ID"),
+            inverseJoinColumns = @JoinColumn(name = "ORG_ID", referencedColumnName = "ORG_ID"))
     public OrganizationEntity getOrganization() {
         return organization;
     }
@@ -114,13 +130,86 @@ public class AccountEntity extends BaseEntity<AccountEntity, AccountInfo> {
     }
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "SYM_TF_ROLE_ACNT", joinColumns = @JoinColumn(name = "ACNT_ID", referencedColumnName = "PK_ID"),
-            inverseJoinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "PK_ID"))
+    @JoinTable(name = "SYM_TF_ROLE_ACN", joinColumns = @JoinColumn(name = "ACN_ID", referencedColumnName = "ACN_ID"),
+            inverseJoinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID"))
     public Set<RoleEntity> getRoles() {
         return roles;
     }
 
     public void setRoles(Set<RoleEntity> roles) {
         this.roles = roles;
+    }
+
+    @Column(name = "PASSWORD")
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Column(name = "TYPE", nullable = false)
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    @Column(name = "JOB", length = 64)
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    @Column(name = "SEX", length = 16)
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    @Column(name = "MOBILE", nullable = false, length = 16)
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    @Column(name = "EMAIL", length = 255)
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Transactional
+    public AccountInfo toInfo(AccountInfo info, String... ignorep) {
+        super.toInfo(info, ignorep);
+        OrganizationEntity org = this.getOrganization();
+        if (org != null) {
+            OrganizationInfo oInfo = new OrganizationInfo();
+            oInfo.setId(org.getId());
+            oInfo.setCode(org.getCode());
+            oInfo.setCompany(org.getCompany());
+            oInfo.setName(org.getName());
+            info.setOrg(oInfo);
+        }
+        Set<RoleInfo> roles = new HashSet<>();
+        if (this.getRoles() != null)
+            this.getRoles().forEach(a -> roles.add(a.toInfo(new RoleInfo())));
+        info.setRoles(roles);
+        return info;
     }
 }

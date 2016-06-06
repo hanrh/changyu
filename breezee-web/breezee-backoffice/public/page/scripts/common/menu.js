@@ -67,6 +67,7 @@ org.breezee.menu = (function () {
      */
     this.topSelect = function (code) {
         $('.' + code).addClass('active');
+        this.subSelect(org.breezee.context.queryData.menu);
     };
     /**
      * 纵向二级菜单的点击，供页面初始化时候

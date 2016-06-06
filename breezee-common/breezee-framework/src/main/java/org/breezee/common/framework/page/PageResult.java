@@ -11,7 +11,6 @@ import org.breezee.common.domain.InfoPage;
 import org.breezee.common.framework.BaseEntity;
 import org.springframework.data.domain.Page;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +20,7 @@ import java.util.Map;
  * <p>
  * Created by Silence on 2016/1/22.
  */
-public class PageResult<E extends BaseEntity, V extends BaseInfo> extends InfoPage implements Serializable {
+public class PageResult<E extends BaseEntity, V extends BaseInfo> extends InfoPage {
 
     @JsonIgnore
     private transient Page<E> page;
@@ -67,5 +66,12 @@ public class PageResult<E extends BaseEntity, V extends BaseInfo> extends InfoPa
 
     public void setProperties(Map<String, Object> properties) {
         this.properties = properties;
+    }
+
+    public InfoPage copyTo() {
+        InfoPage infoPage = new InfoPage();
+        infoPage.setTotal(this.getTotal());
+        infoPage.setContent(this.getContent());
+        return infoPage;
     }
 }

@@ -14,6 +14,16 @@ import java.util.UUID;
  */
 public class SystemTool {
 
+    private static InetAddress ia;
+
+    static {
+        try {
+            ia = InetAddress.getLocalHost();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * 获取当前操作系统名称
      * return 操作系统名称
@@ -29,12 +39,6 @@ public class SystemTool {
      * @return 本机主机名
      */
     public static String getHostName() {
-        InetAddress ia = null;
-        try {
-            ia = InetAddress.getLocalHost();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
         return ia == null ? "unknownHost" : ia.getHostName();
     }
 
@@ -44,12 +48,6 @@ public class SystemTool {
      * @return 本机IP地址
      */
     public static String getIPAddress() {
-        InetAddress ia = null;
-        try {
-            ia = InetAddress.getLocalHost();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
         return ia == null ? "unknownIp" : ia.getHostAddress();
     }
 
