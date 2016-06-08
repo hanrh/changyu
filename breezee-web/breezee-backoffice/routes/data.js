@@ -51,6 +51,13 @@ router.use('/', function (req, res, next) {
         language: req.session.userData.language,
         equipment: global.tool.endTypeEnum[req.session.endType]
     });
+    if (req.method == 'POST') {//如果是POST请求，则把后面的?参数放到JSON中去
+        if (!bodyData.properties)
+            bodyData.properties = {};
+        for (var k in req.query) {
+            bodyData.properties[k] = req.query[k];
+        }
+    }
     logger.info("Real Uri:" + realUri);
     global.tool.send({
         method: req.method,

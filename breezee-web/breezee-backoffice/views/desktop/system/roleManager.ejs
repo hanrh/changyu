@@ -3,18 +3,94 @@
         <h1 class="content-title">角色管理</h1>
         <ul class="fl">
             <li>
-                <button class="btn"><i class="anchnet_icon icon_page icon_new"></i><span>新建</span></button>
-            </li>
-            <li>
-                <button class="btn" disabled="disabled"><i class="anchnet_icon icon_page icon_new"></i><span>加入</span>
+                <button class="btn btn-block btn-info newRole"><i class="fui-plus-circle icon-menu"></i></i>
+                    <span>新建角色</span>
                 </button>
-            </li>
-            <li>
-                <button class="btn" disabled="disabled"><i
-                            class="anchnet_icon icon_page icon_cirreduce"></i><span>离开</span></button>
             </li>
         </ul>
     </div>
 </div>
 <div class="dolphin-col-24 main" id="myContent">
+    <div id="roleList" class="box-content"></div>
 </div>
+
+<div class="modal" id="role_win">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <span class="modal-title">角色维护</span>
+            </div>
+            <div class="modal-body">
+                <div class="tab-pane">
+                    <form class="form-horizontal edit-form">
+                        <input type="hidden" class="form-control" name="id">
+                        <div class="form-group">
+                            <label class="col-md-offset-1 col-md-2 control-label">角色名称</label>
+                            <div class="col-md-6">
+                                <input class="form-control" name="name" type="text" dol-validate="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-offset-1 col-md-2 control-label">角色编码</label>
+                            <div class="col-md-6">
+                                <input class="form-control" name="code" type="text" dol-validate="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-offset-1 col-md-2 control-label">角色权限</label>
+                            <div class="col-md-6">
+                                <select class="selectpicker form-control show-tick" name="permits" multiple
+                                        data-actions-box="true" data-selected-text-format="count > 3">
+                                    <optgroup label="业务管理">
+                                        <option class="special" value="undo">待办事项</option>
+                                        <option value="finished">已办事项</option>
+                                        <option value="toRead">提醒事项</option>
+                                        <option value="delegate">代理设置</option>
+                                    </optgroup>
+                                    <optgroup label="客户管理">
+                                        <option class="special" value="myCustomer">我的客户</option>
+                                        <option value="customerLimit">客户限售</option>
+                                        <option value="creditQuery">信用查询</option>
+                                        <option value="goBack">往来账</option>
+                                        <option value="moneyDetail">打款明细</option>
+                                        <option value="customerAnalysis">客户分析</option>
+                                    </optgroup>
+                                    <optgroup label="商品管理">
+                                        <option class="special" value="myProduct">可售商品</option>
+                                        <option value="openProduct">开放清单</option>
+                                        <option value="productStock">商品库存</option>
+                                        <option value="attributeList">属性维护</option>
+                                        <option value="categoryList">品类维护</option>
+                                        <option value="productList">产品管理</option>
+                                    </optgroup>
+                                    <optgroup label="系统管理">
+                                        <option class="special" value="accountManager">账号管理</option>
+                                        <option value="roleManager">角色管理</option>
+                                        <option value="orgManager">组织结构</option>
+                                        <option value="enumManager">数据字典</option>
+                                        <option value="loginLog">登录日志</option>
+                                        <option value="bizLog">业务日志</option>
+                                        <option value="interfaceLog">接口日志</option>
+                                        <option value="setting">系统设置</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn_submit">保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script src="<%= global.config.publicPath %>/page/scripts/<%= path %>.js"></script>

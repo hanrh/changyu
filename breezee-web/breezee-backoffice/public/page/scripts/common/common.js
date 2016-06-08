@@ -33,6 +33,11 @@ function namespace(namespace) {
 namespace("org.breezee");
 
 /**
+ * 设置本地的log，来支持在debug
+ */
+org.breezee.logger = console;
+
+/**
  * list空间中的一些util方法
  * @type {{edit: org.breezee.buttons.edit, del: org.breezee.buttons.del, editCallback: org.breezee.buttons.editCallback, delCallback: org.breezee.buttons.delCallback}}
  */

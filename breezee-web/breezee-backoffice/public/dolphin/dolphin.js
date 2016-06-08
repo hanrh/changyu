@@ -2380,7 +2380,7 @@
 	}
 	PAGINATION.defaults = {
 		panel: "",								        //生成区别，遵循jQuery选择器规则
-		pageSize: 10,										//每页条数
+		pageSize: 15,										//每页条数
 		pageNumber: 1,									//当前页码
 
 		pageSizeOption: [5, 10, 20, 50],					//每页条数可选项
@@ -2622,10 +2622,10 @@
 		pathData: null,									//路径参数
 
 		pagination: true,									//是否带分页，分页请求参数pageSize, pageNumber
-		pageSize: 10,										//每页条数
+		pageSize: 15,										//每页条数
 		pageNumber: 1,										//当前页数
 		paginationClass: null,							//分页条class
-		pageSizeOption: [5, 10, 20, 50],					//每页显示条数选项
+		pageSizeOption: [10, 15, 20, 50, 100],					//每页显示条数选项
 		paginationSimpleFlag: false, 					//简化分页条
 
 		editFlag: false,									//可编辑列表

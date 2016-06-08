@@ -4,7 +4,6 @@
 
 package org.breezee.common.domain;
 
-import com.sun.istack.internal.NotNull;
 import javafx.util.Callback;
 import org.breezee.common.domain.constants.InfoStatusEnum;
 import org.breezee.common.domain.exception.BreezeeException;
@@ -95,7 +94,7 @@ public interface IServiceLayer<T extends BaseInfo, E> {
      * @return 返回列表对象
      * @throws BreezeeException
      */
-    default List<T> listAll(@NotNull T t) throws BreezeeException {
+    default List<T> listAll(T t) throws BreezeeException {
         return getRepository().listAll(t, getInfoClass());
     }
 
@@ -107,7 +106,7 @@ public interface IServiceLayer<T extends BaseInfo, E> {
      * @return 分页结果
      * @throws BreezeeException
      */
-    default InfoPage pageAll(@NotNull T t) throws BreezeeException {
+    default InfoPage pageAll(T t) throws BreezeeException {
         return getRepository().pageAll(t, getInfoClass());
     }
 
@@ -118,7 +117,7 @@ public interface IServiceLayer<T extends BaseInfo, E> {
      * @return 条数
      * @throws BreezeeException 异常
      */
-    default long count(@NotNull T t) throws BreezeeException {
+    default long count(T t) throws BreezeeException {
         return getRepository().count(t);
     }
 

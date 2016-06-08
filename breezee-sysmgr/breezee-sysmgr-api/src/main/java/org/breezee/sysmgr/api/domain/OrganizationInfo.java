@@ -6,6 +6,8 @@ package org.breezee.sysmgr.api.domain;
 
 import org.breezee.common.domain.TreeInfo;
 
+import java.util.List;
+
 /**
  * 实体域：组织信息对象
  * 省，城市，营销部 构成一个树形结构
@@ -14,6 +16,8 @@ import org.breezee.common.domain.TreeInfo;
 public class OrganizationInfo extends TreeInfo<OrganizationInfo> {
 
     protected String company;
+
+    protected List<String> accounts;
 
     public OrganizationInfo() {
     }
@@ -30,5 +34,13 @@ public class OrganizationInfo extends TreeInfo<OrganizationInfo> {
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    public List<String> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<String> accounts) {
+        this.accounts = accounts;
     }
 }

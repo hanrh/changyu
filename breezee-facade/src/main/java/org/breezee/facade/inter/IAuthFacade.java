@@ -107,4 +107,8 @@ public interface IAuthFacade extends IFacadeLayer {
     Response<AccountInfo> findAccountByCode(String code);
 
     Response<AccountInfo> findAccountById(String id);
+
+    Response<OrganizationInfo> findOrganizationById(String id);
+
+    Response<OrganizationInfo> saveOrgAccounts(OrganizationInfo info);
 }

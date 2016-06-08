@@ -96,7 +96,9 @@ public final class DynamicSpecifications {
                         }
                     } else if (key.endsWith("_obj")) {
                         try {
-                            ObjectMapper objectMapper = new ObjectMapper();
+                            ObjectMapper objectMapper = ContextUtil.getBean("objectMapper", ObjectMapper.class);
+                            if (objectMapper == null)
+                                objectMapper = new ObjectMapper();
                             String k = key.substring(0, (key.length() - 4));
                             if (val.toString().equals("-1")) {
                                 predicate.add(cb.isNull(root.get(k).as(root.getModel().getAttribute(k).getJavaType())));
@@ -107,8 +109,19 @@ public final class DynamicSpecifications {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                    } else if(key.endsWith("_of")){
-                        predicate.add(cb.isMember(val,root.get(key.substring(0, (key.length() - 3)))));
+                    } else if (key.endsWith("_obj_not")) {
+                        try {
+                            ObjectMapper objectMapper = ContextUtil.getBean("objectMapper", ObjectMapper.class);
+                            if (objectMapper == null)
+                                objectMapper = new ObjectMapper();
+                            String k = key.substring(0, (key.length() - 8));
+                            Object v = objectMapper.readValue("{\"id\":\"" + val.toString() + "\"}", root.getModel().getAttribute(k).getJavaType());
+                            predicate.add(cb.or(cb.notEqual(root.get(k).as(v.getClass()), v), cb.isNull(root.get(k).as(root.getModel().getAttribute(k).getJavaType()))));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else if (key.endsWith("_of")) {
+                        predicate.add(cb.isMember(val, root.get(key.substring(0, (key.length() - 3)))));
                     } else {
                         try {
                             predicate.add(cb.equal(root.get(key).as(val.getClass()), val));

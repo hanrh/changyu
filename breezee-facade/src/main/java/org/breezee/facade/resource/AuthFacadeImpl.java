@@ -5,6 +5,7 @@
 package org.breezee.facade.resource;
 
 import com.alibaba.dubbo.rpc.protocol.rest.support.ContentType;
+import org.breezee.common.domain.BaseInfo;
 import org.breezee.common.domain.exception.BreezeeException;
 import org.breezee.facade.inter.IAuthFacade;
 import org.breezee.facade.response.JsonResponse;
@@ -51,33 +52,43 @@ public class AuthFacadeImpl implements IAuthFacade {
     @PUT
     @Override
     public JsonResponse saveAccount(AccountInfo accountInfo) {
-        try {
-            accountInfo = (AccountInfo) accountService.saveInfo(accountInfo);
-        } catch (BreezeeException e) {
-            e.printStackTrace();
-            return JsonResponse.ERROR(e.getMessage());
-        }
-        return JsonResponse.buildSingle(accountInfo);
+        return _saveInfo(accountInfo);
     }
 
     @Path("/organization")
     @PUT
     @Override
     public JsonResponse saveOrganization(OrganizationInfo organizationInfo) {
-        try {
-            organizationService.saveInfo(organizationInfo);
-        } catch (BreezeeException e) {
-            e.printStackTrace();
-            return JsonResponse.ERROR(e.getMessage());
-        }
-        return JsonResponse.OK();
+        return _saveInfo(organizationInfo);
     }
 
     @Path("/role")
     @PUT
     @Override
     public JsonResponse saveRole(RoleInfo roleInfo) {
-        return null;
+        return _saveInfo(roleInfo);
+    }
+
+    /**
+     * 内部保存方法，只是为了减少重复代码罢了
+     *
+     * @param info 界面对象
+     * @return 成功还是失败信息
+     */
+    private JsonResponse _saveInfo(BaseInfo info) {
+        try {
+            if (info instanceof OrganizationInfo) {
+                organizationService.saveInfo(info);
+            } else if (info instanceof AccountInfo) {
+                accountService.saveInfo(info);
+            } else if (info instanceof RoleInfo) {
+                roleService.saveInfo(info);
+            }
+        } catch (BreezeeException e) {
+            e.printStackTrace();
+            return JsonResponse.ERROR(e.getMessage());
+        }
+        return JsonResponse.OK();
     }
 
     @Path("/account/page")
@@ -86,7 +97,11 @@ public class AuthFacadeImpl implements IAuthFacade {
     public JsonResponse pageAccount(AccountInfo accountInfo) {
         long t = System.currentTimeMillis();
         try {
-            return JsonResponse.build(accountService.pageAll(accountInfo), t);
+            if ((accountInfo.getProperties().get("pageSize").toString()).equals("-1")) {
+                return JsonResponse.build(accountService.listAll(accountInfo), t);
+            } else {
+                return JsonResponse.build(accountService.pageAll(accountInfo), t);
+            }
         } catch (BreezeeException e) {
             e.printStackTrace();
             return JsonResponse.ERROR(e.getMessage());
@@ -137,5 +152,20 @@ public class AuthFacadeImpl implements IAuthFacade {
     @Override
     public JsonResponse findAccountById(@PathParam("id") String id) {
         return JsonResponse.buildSingle(accountService.findById(id));
+    }
+
+    @Path("/organization/{id}")
+    @GET
+    @Override
+    public JsonResponse findOrganizationById(@PathParam("id") String id) {
+        return JsonResponse.buildSingle(organizationService.findById(id));
+    }
+
+    @Path("/organization/accounts")
+    @POST
+    @Override
+    public JsonResponse saveOrgAccounts(OrganizationInfo info) {
+        organizationService.saveAccounts(info);
+        return JsonResponse.OK();
     }
 }

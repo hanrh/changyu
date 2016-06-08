@@ -4,7 +4,6 @@
 
 package org.breezee.common.framework;
 
-import com.sun.istack.internal.NotNull;
 import javafx.util.Callback;
 import org.breezee.common.domain.BaseInfo;
 import org.breezee.common.domain.IRepository;
@@ -71,7 +70,7 @@ public interface ICommonRepository<T extends BaseEntity, R extends BaseInfo, ID 
      * @throws BreezeeException
      */
     @Override
-    default InfoList<R> listAll(@NotNull R r, Class<R> cla) throws BreezeeException {
+    default InfoList<R> listAll(R r, Class<R> cla) throws BreezeeException {
         r.checkQuery(r.getProperties());
         List<T> l = this.findAll(DynamicSpecifications.createSpecification(r.getProperties()), new Sort(Sort.Direction.DESC, "updateTime"));
         return new InfoList<>(l, param -> {
@@ -88,7 +87,7 @@ public interface ICommonRepository<T extends BaseEntity, R extends BaseInfo, ID 
      * @throws BreezeeException
      */
     @Override
-    default InfoPage pageAll(@NotNull R r, Class<R> cla) throws BreezeeException {
+    default InfoPage pageAll(R r, Class<R> cla) throws BreezeeException {
         r.checkQuery(r.getProperties());
         PageInfo pageInfo = new PageInfo(r.getProperties());
         pageInfo.setSort(new Sort(Sort.Direction.DESC, "updateTime"));

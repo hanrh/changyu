@@ -8,6 +8,8 @@
     "84c3d29503064850a856c830dfb10c23": "http://127.0.0.1:3289/services/auth/role",
     "3569ed456e5545d5afeece71d333677a": "http://127.0.0.1:3289/services/auth/account/page",
     "ed040a7849cc400fbf55ec6ec0abf43b": "http://127.0.0.1:3289/services/auth/organization/tree/{parentId}",
+    "f1636e6852684975b9bc1105f8e95b93": "http://127.0.0.1:3289/services/auth/organization/{id}",
+    "ecf2c717827c4c2d998ea9fd4d5b779c": "http://127.0.0.1:3289/services/auth/organization/accounts",
     "50ba94f6b48b4054ba4b90953fe5f365": "http://127.0.0.1:3289/services/auth/role/list",
     "130552d80d804b7ca37dc9b2fd5365fe": "http://127.0.0.1:3289/services/auth/account/code/{code}",
     "25274ec2bcc14367be8e57c1f10a58b1": "http://127.0.0.1:3289/services/auth/account/{id}"

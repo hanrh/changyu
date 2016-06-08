@@ -5,6 +5,7 @@
 package org.breezee.sysmgr.api.service;
 
 import org.breezee.common.domain.IServiceLayer;
+import org.breezee.common.domain.exception.BreezeeException;
 import org.breezee.sysmgr.api.domain.OrganizationInfo;
 
 /**
@@ -17,4 +18,6 @@ public interface IOrganizationService<E> extends IServiceLayer<OrganizationInfo,
     default Class<OrganizationInfo> getInfoClass() {
         return OrganizationInfo.class;
     }
+
+    void saveAccounts(OrganizationInfo info) throws BreezeeException;
 }
