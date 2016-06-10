@@ -4,11 +4,13 @@
 
 package org.breezee.sysmgr.entity;
 
+import org.breezee.common.domain.BreezeeUtils;
 import org.breezee.common.framework.BaseEntity;
 import org.breezee.sysmgr.api.domain.AccountInfo;
 import org.breezee.sysmgr.api.domain.OrganizationInfo;
 import org.breezee.sysmgr.api.domain.RoleInfo;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
@@ -211,5 +213,13 @@ public class AccountEntity extends BaseEntity<AccountEntity, AccountInfo> {
             this.getRoles().forEach(a -> roles.add(a.toInfo(new RoleInfo())));
         info.setRoles(roles);
         return info;
+    }
+
+    public AccountEntity parseInfo(AccountInfo info, String... ignore) {
+        super.parseInfo(info, ignore);
+        if (StringUtils.isEmpty(info.getPassword())) {
+            this.setPassword(BreezeeUtils.enCrypt(info.getCode() + "123"));
+        }
+        return this;
     }
 }

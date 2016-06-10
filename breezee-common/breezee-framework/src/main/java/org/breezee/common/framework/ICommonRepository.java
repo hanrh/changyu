@@ -107,6 +107,7 @@ public interface ICommonRepository<T extends BaseEntity, R extends BaseInfo, ID 
     @SuppressWarnings("unchecked")
     @Override
     default R saveInfo(R r, Class<?> cla, Callback<R, ?>... callback) throws BreezeeException {
+        r.validate();//???这个校验是否应该放在持久域里面呢还是放在service or facade中？需要再次考虑
         T t;
         if (StringUtils.isEmpty(r.getId())) {
             t = this.findByCode(r.getCode());

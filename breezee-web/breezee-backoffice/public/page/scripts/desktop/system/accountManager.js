@@ -7,6 +7,7 @@ $(function () {
         init: function () {
             this.initEvent();
             this._userList = this.userList('#userList');
+            $('.selectpicker').selectpicker('render');
         },
         /**
          * 初始化页面事件
@@ -59,13 +60,20 @@ $(function () {
                     title: '渠道'
                 }, {
                     code: 'status',
-                    title: '状态'
+                    title: '状态',
+                    formatter: function (val) {
+                        return val ? '正常' : '禁用';
+                    }
                 }, {
                     code: 'company',
                     title: '公司'
                 }, {
                     code: 'sex',
-                    title: '性别'
+                    title: '性别',
+                    width: '75px',
+                    formatter: function (val) {
+                        return val ? '男' : '女';
+                    }
                 }, {
                     code: 'mobile',
                     title: '手机'

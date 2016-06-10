@@ -5,7 +5,9 @@
 package org.breezee.facade.resource;
 
 import com.alibaba.dubbo.rpc.protocol.rest.support.ContentType;
-import org.breezee.common.domain.exception.BreezeeException;
+import javafx.util.Callback;
+import org.breezee.common.domain.BaseInfo;
+import org.breezee.common.domain.IServiceLayer;
 import org.breezee.facade.inter.IEnumFacade;
 import org.breezee.facade.response.JsonResponse;
 import org.breezee.sysmgr.api.domain.EnumInfo;
@@ -25,7 +27,7 @@ import javax.ws.rs.*;
 @Produces(ContentType.APPLICATION_JSON_UTF_8)
 @Consumes(ContentType.APPLICATION_JSON_UTF_8)
 @Path("/enum")
-public class EnumFacadeImpl implements IEnumFacade {
+public class EnumFacadeImpl extends JsonCommonFacade implements IEnumFacade {
 
     @Resource
     private IEnumService enumService;
@@ -34,38 +36,32 @@ public class EnumFacadeImpl implements IEnumFacade {
     @PUT
     @Override
     public JsonResponse saveEnum(EnumInfo info) {
-        try {
-            enumService.saveInfo(info);
-        } catch (RuntimeException e) {
-            return JsonResponse.ERROR(e.getMessage());
-        }
-        return JsonResponse.buildSingle(info);
+        return _saveInfo(enumService, info);
     }
 
     @Path("/{id}")
     @GET
     @Override
     public JsonResponse findById(@PathParam("id") String id) {
-        return JsonResponse.buildSingle(enumService.findById(id));
+        return _findOne(enumService, id, 0);
     }
 
     @Path("/{id}")
     @DELETE
     @Override
     public JsonResponse deleteById(@PathParam("id") String id) {
-        try {
-            enumService.deleteById(id);
-        } catch (BreezeeException e) {
-            return JsonResponse.ERROR(e.getMessage());
-        }
-        return JsonResponse.OK();
+        return _delete(enumService, id);
     }
 
     @Path("/list")
     @POST
     @Override
     public JsonResponse list(EnumInfo enumInfo) {
-        return JsonResponse.build(enumService.listAll(enumInfo), System.currentTimeMillis());
+        return _pageAll(enumService, enumInfo);
+    }
+
+    public JsonResponse _saveInfo(IServiceLayer service, BaseInfo info, Callback... callback) {
+        return null;
     }
 
 }

@@ -2,7 +2,7 @@
  * Copyright (c) 2016 Breezee.org. All Rights Reserved.
  */
 
-package org.breezee.common.framework;
+package org.breezee.common.domain;
 
 /**
  * 项目中需要使用的一些工具类

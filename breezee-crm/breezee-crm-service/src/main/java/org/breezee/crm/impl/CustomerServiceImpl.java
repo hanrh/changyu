@@ -8,6 +8,8 @@ import org.breezee.common.domain.IRepository;
 import org.breezee.crm.api.domain.CustomerInfo;
 import org.breezee.crm.api.service.ICustomerService;
 import org.breezee.crm.entity.CustomerEntity;
+import org.breezee.crm.repository.ICustomerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,14 +19,16 @@ import org.springframework.stereotype.Service;
 @Service("customerService")
 public class CustomerServiceImpl implements ICustomerService<CustomerEntity> {
 
+    @Autowired
+    private ICustomerRepository customerRepository;
 
     @Override
     public IRepository<CustomerInfo> getRepository() {
-        return null;
+        return customerRepository;
     }
 
     @Override
     public Class<CustomerEntity> getEntityClass() {
-        return null;
+        return CustomerEntity.class;
     }
 }

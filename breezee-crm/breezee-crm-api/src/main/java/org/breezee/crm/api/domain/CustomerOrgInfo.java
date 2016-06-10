@@ -6,6 +6,7 @@ package org.breezee.crm.api.domain;
 
 import org.breezee.common.domain.BizInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -76,6 +77,12 @@ public class CustomerOrgInfo extends BizInfo {
 
     public void setFicoInfoList(List<CustomerFicoInfo> ficoInfoList) {
         this.ficoInfoList = ficoInfoList;
+    }
+
+    public void addFicoInfo(CustomerFicoInfo ficoInfo) {
+        if (ficoInfoList == null)
+            ficoInfoList = new ArrayList<>();
+        ficoInfoList.add(ficoInfo);
     }
 }
 

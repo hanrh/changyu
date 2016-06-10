@@ -13,7 +13,11 @@ import org.breezee.crm.api.domain.UserInfo;
  */
 public interface IUserService<E> extends IServiceLayer<UserInfo, E> {
 
-    String register(UserInfo userInfo);
+    default Class<UserInfo> getInfoClass() {
+        return UserInfo.class;
+    }
 
-    String login(UserInfo userInfo);
+    void register(UserInfo userInfo);
+
+    void login(UserInfo userInfo);
 }

@@ -73,6 +73,14 @@ public interface IAuthFacade extends IFacadeLayer {
     Response<RoleInfo> listRole(RoleInfo roleInfo);
 
     /**
+     * 获取指定ID的角色信息
+     *
+     * @param id 指定ID
+     * @return 角色信息
+     */
+    Response<RoleInfo> findRoleById(String id);
+
+    /**
      * 更新指定人员的状态
      *
      * @param ids    人员ID集合
@@ -93,10 +101,10 @@ public interface IAuthFacade extends IFacadeLayer {
     /**
      * 重置指定人员的密码
      *
-     * @param ids 人员Id集合
+     * @param accounts 人员集合
      * @return 结果
      */
-    Response<AccountInfo> resetPassword(List<String> ids);
+    Response<AccountInfo> resetPassword(List<AccountInfo> accounts);
 
     /**
      * 根据用户编码，获取用户信息

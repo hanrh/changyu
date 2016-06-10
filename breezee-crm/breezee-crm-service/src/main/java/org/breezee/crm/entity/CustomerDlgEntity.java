@@ -39,6 +39,11 @@ public class CustomerDlgEntity extends BaseEntity<CustomerDlgEntity, CustomerDlg
         return id;
     }
 
+    @Column(name = "CODE", length = 64)
+    public String getCode() {
+        return code;
+    }
+
     @Column(name = "COMPANY", nullable = false, length = 32)
     public String getCompany() {
         return company;

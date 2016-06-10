@@ -30,7 +30,6 @@ public class CrmBoot extends Startup {
      */
     public static void main(String[] args) throws Exception {
         ContextUtil.current = SpringApplication.run(CrmBoot.class, args);
-        shutdownHook(CrmBoot.class);
         startup(CrmBoot.class);
     }
 }

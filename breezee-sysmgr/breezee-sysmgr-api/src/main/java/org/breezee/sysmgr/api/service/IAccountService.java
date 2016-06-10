@@ -17,4 +17,6 @@ public interface IAccountService<E> extends IServiceLayer<AccountInfo, E> {
     default Class<AccountInfo> getInfoClass() {
         return AccountInfo.class;
     }
+
+    void changePassword(String id, String password);
 }

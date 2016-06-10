@@ -4,6 +4,7 @@
 
 package org.breezee.sysmgr.impl;
 
+import org.breezee.common.domain.BreezeeUtils;
 import org.breezee.common.domain.IRepository;
 import org.breezee.sysmgr.api.domain.AccountInfo;
 import org.breezee.sysmgr.api.service.IAccountService;
@@ -32,4 +33,10 @@ public class AccountServiceImpl implements IAccountService<AccountEntity> {
         return AccountEntity.class;
     }
 
+    @Override
+    public void changePassword(String id, String password) {
+        AccountEntity entity = accountRepository.findOne(id);
+        entity.setPassword(BreezeeUtils.enCrypt(password));
+        accountRepository.saveAndFlush(entity);
+    }
 }

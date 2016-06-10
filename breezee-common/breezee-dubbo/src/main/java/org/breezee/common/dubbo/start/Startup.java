@@ -32,15 +32,14 @@ public class Startup {
      * @param <T> Startup子类
      */
     protected static <T extends Startup> void startup(Class<T> cla) {
+        shutdownHook(cla);
         synchronized (cla) {
             logger.info("****************************************************************************");
             logger.info("*" + LocalDateTime.now() + " service: " + cla.getName() + " started!");
             logger.info("****************************************************************************");
-            while (running) {
-                try {
-                    cla.wait();
-                } catch (Throwable e) {
-                }
+            while (running) try {
+                cla.wait();
+            } catch (InterruptedException ignored) {
             }
         }
     }

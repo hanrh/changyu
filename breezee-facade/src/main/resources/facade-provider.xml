@@ -9,6 +9,9 @@
 
     <dubbo:service interface="org.breezee.facade.inter.IEnumFacade" ref="enumFacade" protocol="rest"/>
     <dubbo:service interface="org.breezee.facade.inter.IAuthFacade" ref="authFacade" protocol="rest"/>
+    <dubbo:service interface="org.breezee.facade.inter.IProductFacade" ref="productFacade" protocol="rest"/>
+    <dubbo:service interface="org.breezee.facade.inter.ICustomerFacade" ref="customerFacade" protocol="rest"/>
+    <dubbo:service interface="org.breezee.facade.inter.IUserFacade" ref="userFacade" protocol="rest"/>
 
     <dubbo:reference interface="org.breezee.sysmgr.api.service.IEnumService" id="enumService"
                      protocol="dubbo" check="false"/>
@@ -17,5 +20,11 @@
     <dubbo:reference interface="org.breezee.sysmgr.api.service.IOrganizationService" id="organizationService"
                      protocol="dubbo" check="false"/>
     <dubbo:reference interface="org.breezee.sysmgr.api.service.IRoleService" id="roleService"
+                     protocol="dubbo" check="false"/>
+    <dubbo:reference interface="org.breezee.pcm.api.service.IProductService" id="productService"
+                     protocol="dubbo" check="false"/>
+    <dubbo:reference interface="org.breezee.crm.api.service.ICustomerService" id="customerService"
+                     protocol="dubbo" check="false"/>
+    <dubbo:reference interface="org.breezee.crm.api.service.IUserService" id="userService"
                      protocol="dubbo" check="false"/>
 </beans>

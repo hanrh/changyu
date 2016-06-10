@@ -4,6 +4,8 @@
 
 package org.breezee.crm.entity;
 
+import org.breezee.common.domain.BreezeeUtils;
+import org.breezee.common.domain.exception.BreezeeException;
 import org.breezee.common.framework.BaseEntity;
 import org.breezee.common.framework.ContextUtil;
 import org.breezee.crm.api.domain.UserInfo;
@@ -20,13 +22,13 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "CRM_TF_USER")
-public class UserEntity extends BaseEntity {
+public class UserEntity extends BaseEntity<UserEntity, UserInfo> {
 
-    protected String password;
-    protected Integer sex;
-    protected String mobile;
-    protected String email;
-    protected String address;
+    private String password;
+    private Integer sex;
+    private String mobile;
+    private String email;
+    private String address;
     private CustomerEntity customer;
 
     @Id
@@ -152,6 +154,7 @@ public class UserEntity extends BaseEntity {
         this.address = address;
     }
 
+    @Override
     public UserInfo toInfo(UserInfo userInfo, String... ignore) {
         super.toInfo(userInfo, "customer");
         if (this.getCustomer() != null) {
@@ -160,11 +163,17 @@ public class UserEntity extends BaseEntity {
         return userInfo;
     }
 
-    public UserEntity parseInfo(UserInfo info, String... ignore) {
+    @Override
+    public UserEntity parseInfo(UserInfo info, String... ignore) throws BreezeeException {
         super.parseInfo(info, ignore);
         if (StringUtils.hasText(info.getCustomerId())) {
-            this.setCustomer(ContextUtil.getBean("customerRepository", ICustomerRepository.class)
-                    .findByCode(info.getCustomerId()));
+            CustomerEntity c = ContextUtil.getBean("customerRepository", ICustomerRepository.class).findByCode(info.getCustomerId());
+            if (c == null)
+                throw new BreezeeException("绑定的客户不存在");
+            this.setCustomer(c);
+        }
+        if (StringUtils.isEmpty(info.getPassword())) {
+            this.setPassword(BreezeeUtils.enCrypt(info.getCode() + "123"));
         }
         return this;
     }

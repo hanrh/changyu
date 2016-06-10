@@ -3,6 +3,5 @@
  */
 
 $(function () {
-    org.breezee.menu.topSelect('product');
-    org.breezee.menu.subSelect(breezeeContext.queryData.menu);
+    org.breezee.menu.topSelect('product'); //在这里，在进行二级页面的选择
 });

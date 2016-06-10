@@ -18,7 +18,7 @@ public class CustomerInfo extends BizInfo {
     /**
      * 客户类型
      */
-    protected Integer customerType = CustomerTypeEnum.NORMAL.getValue();
+    protected Integer type = CustomerTypeEnum.NORMAL.getValue();
 
     /**
      * 国家
@@ -85,12 +85,12 @@ public class CustomerInfo extends BizInfo {
      */
     protected List<CustomerOrgInfo> orgInfoList;
 
-    public Integer getCustomerType() {
-        return customerType;
+    public Integer getType() {
+        return type;
     }
 
-    public void setCustomerType(Integer customerType) {
-        this.customerType = customerType;
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public String getCountry() {

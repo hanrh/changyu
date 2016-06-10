@@ -251,6 +251,12 @@ public class BaseInfo implements Serializable,
         return true;
     }
 
+    public boolean validate() throws ValidationException {
+        //在保存的时候，对属性值进行校验。
+        //各子类可以予以个性化实现
+        return true;
+    }
+
     /**
      * 复制对象
      * 我们不用BeanUtil的方式实现，而是自己来实现

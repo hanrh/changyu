@@ -5,6 +5,7 @@
 package org.breezee.crm.entity;
 
 import org.breezee.common.framework.BaseEntity;
+import org.breezee.crm.api.domain.CustomerFicoInfo;
 import org.breezee.crm.api.domain.CustomerOrgInfo;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -50,6 +51,11 @@ public class CustomerOrgEntity extends BaseEntity<CustomerOrgEntity, CustomerOrg
     @Column(name = "CUS_ORG_ID", unique = true, nullable = false, updatable = false, length = 64)
     public String getId() {
         return id;
+    }
+
+    @Column(name = "CODE", length = 64)
+    public String getCode() {
+        return code;
     }
 
     @Column(name = "COMPANY", nullable = false, length = 32)
@@ -107,5 +113,13 @@ public class CustomerOrgEntity extends BaseEntity<CustomerOrgEntity, CustomerOrg
 
     public void setFicoEntitySet(Set<CustomerFicoEntity> ficoEntitySet) {
         this.ficoEntitySet = ficoEntitySet;
+    }
+
+    public CustomerOrgInfo toInfo(CustomerOrgInfo info, String... ignore) {
+        super.toInfo(info, ignore);
+        this.getFicoEntitySet().forEach(a -> {
+            info.addFicoInfo(a.toInfo(CustomerFicoInfo.class));
+        });
+        return info;
     }
 }

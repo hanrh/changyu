@@ -5,6 +5,7 @@
 package org.breezee.crm.impl;
 
 import org.breezee.common.domain.IRepository;
+import org.breezee.common.domain.exception.BreezeeException;
 import org.breezee.crm.api.domain.UserInfo;
 import org.breezee.crm.api.service.IUserService;
 import org.breezee.crm.entity.UserEntity;
@@ -23,17 +24,6 @@ public class UserServiceImpl implements IUserService<UserEntity> {
     @Resource
     private IUserRepository userRepository;
 
-
-    @Override
-    public String register(UserInfo userInfo) {
-        return null;
-    }
-
-    @Override
-    public String login(UserInfo userInfo) {
-        return null;
-    }
-
     @Override
     public IRepository<UserInfo> getRepository() {
         return userRepository;
@@ -45,7 +35,10 @@ public class UserServiceImpl implements IUserService<UserEntity> {
     }
 
     @Override
-    public Class<UserInfo> getInfoClass() {
-        return null;
+    public void register(UserInfo userInfo) throws BreezeeException {
+    }
+
+    @Override
+    public void login(UserInfo userInfo) throws BreezeeException {
     }
 }

@@ -24,15 +24,15 @@ $(function () {
                 var ef = $(".edit-form");
                 if (Dolphin.form.validate(ef)) {
                     var data = Dolphin.form.getValue(ef, '"');
-                    if (data.company)
-                        data.company = data.company.join(',');
+                    if (data.permits)
+                        data.permits = data.permits.join(',');
                     Dolphin.ajax({
-                        url: '/api/39f139515f18427984e8774c59ba727b',
+                        url: '/api/84c3d29503064850a856c830dfb10c23',
                         type: Dolphin.requestMethod.PUT,
                         data: Dolphin.json2string(data),
                         onSuccess: function (reData) {
                             me._roleList.reload();
-                            $('#account_win').modal('hide');
+                            $('#role_win').modal('hide');
                         }
                     });
 
@@ -58,7 +58,11 @@ $(function () {
                     width: '100px'
                 }, {
                     code: 'permits',
-                    title: '角色权限'
+                    title: '角色权限',
+                    formatter: function (val) {
+                        console.log(val.length);
+                        return val.length > 100 ? val.substring(0, 100) + '...' : val;
+                    }
                 }, {
                     code: 'id',
                     title: '&nbsp;',
@@ -77,11 +81,11 @@ $(function () {
                 rowIndex: true,
                 checkbox: true,
                 ajaxType: Dolphin.requestMethod.POST,
-                url: '/api/3569ed456e5545d5afeece71d333677a',
+                url: '/api/8a6d6925e3d14ba7b49903ad16083a2b',
                 pagination: true,
                 onLoadSuccess: function () {
-                    org.breezee.buttons.editCallback('25274ec2bcc14367be8e57c1f10a58b1', 'id', function (data) {
-                        if (data.value && data.value.company)
+                    org.breezee.buttons.editCallback('b2e406a3d1d241aca116107a65e366a1', 'id', function (data) {
+                        if (data.value && data.value.permits)
                             $('.selectpicker').selectpicker('val', data.value.permits.split(','));
                         $('#role_win').modal('show');
                     });

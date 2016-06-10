@@ -4,5 +4,4 @@
 
 $(function () {
     org.breezee.menu.topSelect('order');
-    org.breezee.menu.subSelect(org.breezee.context.queryData.menu);
 });

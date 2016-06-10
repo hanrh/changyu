@@ -32,6 +32,11 @@ public class CustomerFicoEntity extends BaseEntity<CustomerFicoEntity, CustomerF
         return id;
     }
 
+    @Column(name = "CODE", length = 64)
+    public String getCode() {
+        return code;
+    }
+
     @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "CUS_ORG_ID", nullable = false)
     public CustomerOrgEntity getOrgEntity() {

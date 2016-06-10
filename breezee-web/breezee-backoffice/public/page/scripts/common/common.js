@@ -77,6 +77,23 @@ org.breezee.buttons = {
         return s;
     },
     /**
+     * 查看按钮
+     * @param data
+     * @param callback
+     * @returns {string}
+     */
+    view: function (data, callback) {
+        var s = '<a class="btn btn-outline btn-sm dark viewBtn" ';
+        if (data) {
+            for (var k in data) {
+                if (data[k])
+                    s += 'data-' + k + '="' + data[k] + '"';
+            }
+        }
+        s += ' href="javascript:;"><i class="fa fa-share"></i>查看</a>';
+        return s;
+    },
+    /**
      * 编辑按钮的回调
      * @param apiId
      * @param field
@@ -118,6 +135,25 @@ org.breezee.buttons = {
                     }
                 }
             })
+        });
+    },
+    /**
+     * 查看按钮的回调
+     * @param apiId
+     * @param cb
+     */
+    viewCallback: function (apiId, field, cb) {
+        $('.viewBtn').click(function () {
+            var _this = $(this);
+            Dolphin.ajax({
+                url: '/api/' + apiId + '@' + field + '=' + _this.data(field),
+                type: Dolphin.requestMethod.GET,
+                onSuccess: function (reData) {
+                    Dolphin.form.setValue(reData.value, '.edit-form');
+                    if (cb)
+                        cb.call(this, reData)
+                }
+            });
         });
     }
 };

@@ -10,6 +10,7 @@ $(function () {
             this._selectList = this.selectUserList('#selectedList');
             this._unSelectList = this.unSelectUserList('#unselectedList');
             this.initEvent();
+            $('.selectpicker').selectpicker('render');
         },
         /**
          * 初始化事件

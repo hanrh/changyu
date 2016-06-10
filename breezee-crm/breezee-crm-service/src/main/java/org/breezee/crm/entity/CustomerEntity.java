@@ -29,7 +29,7 @@ public class CustomerEntity extends BaseEntity<CustomerEntity, CustomerInfo> {
     /**
      * 客户类型
      */
-    private Integer customerType;
+    private Integer type;
 
     /**
      * 国家
@@ -155,12 +155,12 @@ public class CustomerEntity extends BaseEntity<CustomerEntity, CustomerInfo> {
     }
 
     @Column(name = "CUS_TYPE", nullable = false)
-    public Integer getCustomerType() {
-        return customerType;
+    public Integer getType() {
+        return type;
     }
 
-    public void setCustomerType(Integer customerType) {
-        this.customerType = customerType;
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     @Column(name = "COUNTRY")
@@ -299,5 +299,13 @@ public class CustomerEntity extends BaseEntity<CustomerEntity, CustomerInfo> {
 
     public void setUserEntitySet(Set<UserEntity> userEntitySet) {
         this.userEntitySet = userEntitySet;
+    }
+
+    public CustomerInfo toInfo(CustomerInfo info, String... ignore) {
+        super.toInfo(info, ignore);
+        this.getOrgEntitySet().forEach(a -> {
+
+        });
+        return info;
     }
 }

@@ -8,5 +8,7 @@ package org.breezee.common.domain;
  * Facade层高度抽象接口
  * Created by Silence on 2016/5/31.
  */
+@SuppressWarnings("unchecked")
 public interface IFacadeLayer {
+
 }

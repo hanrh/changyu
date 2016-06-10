@@ -31,7 +31,6 @@ public class SysmgrBoot extends Startup {
      */
     public static void main(String[] args) throws Exception {
         ContextUtil.current = SpringApplication.run(SysmgrBoot.class, args);
-        shutdownHook(SysmgrBoot.class);
         startup(SysmgrBoot.class);
     }
 }

@@ -5,8 +5,9 @@
 package org.breezee.facade.resource;
 
 import com.alibaba.dubbo.rpc.protocol.rest.support.ContentType;
-import org.breezee.common.domain.BaseInfo;
-import org.breezee.common.domain.exception.BreezeeException;
+import org.breezee.common.domain.BreezeeUtils;
+import org.breezee.common.domain.constants.InfoStatusEnum;
+import org.breezee.common.domain.exception.EntityNotFoundException;
 import org.breezee.facade.inter.IAuthFacade;
 import org.breezee.facade.response.JsonResponse;
 import org.breezee.sysmgr.api.domain.AccountInfo;
@@ -30,7 +31,7 @@ import java.util.List;
 @Produces(ContentType.APPLICATION_JSON_UTF_8)
 @Consumes(ContentType.APPLICATION_JSON_UTF_8)
 @Path("/auth")
-public class AuthFacadeImpl implements IAuthFacade {
+public class AuthFacadeImpl extends JsonCommonFacade implements IAuthFacade {
 
     @Resource
     private IAccountService accountService;
@@ -45,67 +46,46 @@ public class AuthFacadeImpl implements IAuthFacade {
     @POST
     @Override
     public JsonResponse checkLogin(AccountInfo accountInfo) {
-        return JsonResponse.OK();
+        AccountInfo myInfo;
+        try {
+            myInfo = (AccountInfo) accountService.findByCode(accountInfo.getCode());
+            if (!myInfo.getPassword().equals(BreezeeUtils.enCrypt(accountInfo.getPassword()))) {
+                return JsonResponse.ERROR("password is wrong!");
+            }
+        } catch (EntityNotFoundException e) {
+            e.printStackTrace();
+            return JsonResponse.ERROR(e.getMessage());
+        }
+        //将用户信息返回至页面中
+        return JsonResponse.buildSingle(myInfo);
     }
 
     @Path("/account")
     @PUT
     @Override
     public JsonResponse saveAccount(AccountInfo accountInfo) {
-        return _saveInfo(accountInfo);
+        return _saveInfo(accountService, accountInfo);
     }
 
     @Path("/organization")
     @PUT
     @Override
     public JsonResponse saveOrganization(OrganizationInfo organizationInfo) {
-        return _saveInfo(organizationInfo);
+        return _saveInfo(organizationService, organizationInfo);
     }
 
     @Path("/role")
     @PUT
     @Override
     public JsonResponse saveRole(RoleInfo roleInfo) {
-        return _saveInfo(roleInfo);
-    }
-
-    /**
-     * 内部保存方法，只是为了减少重复代码罢了
-     *
-     * @param info 界面对象
-     * @return 成功还是失败信息
-     */
-    private JsonResponse _saveInfo(BaseInfo info) {
-        try {
-            if (info instanceof OrganizationInfo) {
-                organizationService.saveInfo(info);
-            } else if (info instanceof AccountInfo) {
-                accountService.saveInfo(info);
-            } else if (info instanceof RoleInfo) {
-                roleService.saveInfo(info);
-            }
-        } catch (BreezeeException e) {
-            e.printStackTrace();
-            return JsonResponse.ERROR(e.getMessage());
-        }
-        return JsonResponse.OK();
+        return _saveInfo(roleService, roleInfo);
     }
 
     @Path("/account/page")
     @POST
     @Override
     public JsonResponse pageAccount(AccountInfo accountInfo) {
-        long t = System.currentTimeMillis();
-        try {
-            if ((accountInfo.getProperties().get("pageSize").toString()).equals("-1")) {
-                return JsonResponse.build(accountService.listAll(accountInfo), t);
-            } else {
-                return JsonResponse.build(accountService.pageAll(accountInfo), t);
-            }
-        } catch (BreezeeException e) {
-            e.printStackTrace();
-            return JsonResponse.ERROR(e.getMessage());
-        }
+        return _pageAll(accountService, accountInfo);
     }
 
     @Path("/organization/tree/{parentId}")
@@ -122,43 +102,62 @@ public class AuthFacadeImpl implements IAuthFacade {
     @POST
     @Override
     public JsonResponse listRole(RoleInfo roleInfo) {
-        return null;
+        return _pageAll(roleService, roleInfo);
+    }
+
+    @Path("/role/{id}")
+    @GET
+    @Override
+    public JsonResponse findRoleById(@PathParam("id") String id) {
+        return _findOne(roleService, id, 0);
     }
 
     @Override
     public JsonResponse enableAccount(List<String> ids, boolean enable) {
-        return null;
+        ids.forEach(a -> {
+            accountService.updateStatus(a, enable ? InfoStatusEnum.ENABLE : InfoStatusEnum.DISABLE);
+        });
+        return JsonResponse.OK();
     }
 
     @Override
     public JsonResponse enableAccount(AccountInfo accountInfo, boolean enable) {
-        return null;
+        List<AccountInfo> l = accountService.listAll(accountInfo);
+        l.forEach(a -> {
+            accountService.updateStatus(a.getId(), enable ? InfoStatusEnum.ENABLE : InfoStatusEnum.DISABLE);
+        });
+        return JsonResponse.OK();
     }
 
+    @Path("/account/restPassword")
+    @POST
     @Override
-    public JsonResponse resetPassword(List<String> ids) {
-        return null;
+    public JsonResponse resetPassword(List<AccountInfo> accounts) {
+        accounts.forEach(a -> {
+            accountService.changePassword(a.getId(), a.getCode() + "123");
+        });
+        return JsonResponse.OK();
     }
 
     @Path("/account/code/{code}")
     @GET
     @Override
     public JsonResponse findAccountByCode(@PathParam("code") String code) {
-        return JsonResponse.buildSingle(accountService.findByCode(code));
+        return _findOne(accountService, code, 1);
     }
 
     @Path("/account/{id}")
     @GET
     @Override
     public JsonResponse findAccountById(@PathParam("id") String id) {
-        return JsonResponse.buildSingle(accountService.findById(id));
+        return _findOne(accountService, id, 0);
     }
 
     @Path("/organization/{id}")
     @GET
     @Override
     public JsonResponse findOrganizationById(@PathParam("id") String id) {
-        return JsonResponse.buildSingle(organizationService.findById(id));
+        return _findOne(organizationService, id, 0);
     }
 
     @Path("/organization/accounts")
@@ -168,4 +167,5 @@ public class AuthFacadeImpl implements IAuthFacade {
         organizationService.saveAccounts(info);
         return JsonResponse.OK();
     }
+
 }
