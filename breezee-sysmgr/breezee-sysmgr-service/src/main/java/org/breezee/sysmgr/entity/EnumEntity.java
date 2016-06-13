@@ -19,7 +19,7 @@ import java.util.Set;
  * Created by Silence on 2016/5/10.
  */
 @Entity
-@Table(name = "SYM_TF_ENUM")
+@Table(name = "SYM_TF_ENUM", schema = BaseEntity.DB_SCHEMA)
 public class EnumEntity extends BaseEntity<EnumEntity, EnumInfo> {
 
     private Set<EnumItemEntity> items;

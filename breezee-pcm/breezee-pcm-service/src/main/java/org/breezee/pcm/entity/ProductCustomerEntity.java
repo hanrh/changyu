@@ -16,7 +16,7 @@ import java.util.Date;
  * Created by Silence on 2016/6/9.
  */
 @Entity
-@Table(name = "PCM_TF_PRODUCT_CUSTOMER")
+@Table(name = "PCM_TF_PRODUCT_CUSTOMER", schema = BaseEntity.DB_SCHEMA)
 public class ProductCustomerEntity extends BaseEntity<ProductCustomerEntity, ProductCustomerInfo> {
 
     private ProductEntity product;

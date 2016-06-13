@@ -21,7 +21,7 @@ import java.util.Date;
  * Created by Silence on 2016/6/4.
  */
 @Entity
-@Table(name = "CRM_TF_USER")
+@Table(name = "CRM_TF_USER", schema = BaseEntity.DB_SCHEMA)
 public class UserEntity extends BaseEntity<UserEntity, UserInfo> {
 
     private String password;

@@ -17,7 +17,7 @@ import java.util.Set;
  * Created by Silence on 2016/5/10.
  */
 @Entity
-@Table(name = "SYM_TF_ROLE")
+@Table(name = "SYM_TF_ROLE", schema = BaseEntity.DB_SCHEMA)
 public class RoleEntity extends BaseEntity<RoleEntity, RoleInfo> {
 
     private String permits;

@@ -14,8 +14,14 @@ router.use('/login', function (req, res, next) {
     req.session = req.session || {};
     req.session.userData = {
         userCode: 1,
-        userName: "silence@breezee.org",
-        language: req.headers["accept-language"] && req.headers["accept-language"].substr(0, 2)
+        userName: 'silence@breezee.org',
+        language: req.headers["accept-language"] && req.headers["accept-language"].substr(0, 2),
+        company: '3008',
+        channel: 'A',
+        orgId: 'organization',
+        orgCode: 'Z206',
+        province: 'Z206',
+        orgCategory: 1
     };
     res.json({success: true});
 });

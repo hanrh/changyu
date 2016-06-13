@@ -23,7 +23,7 @@ import java.util.Set;
  * Created by Silence on 2016/5/5.
  */
 @Entity
-@Table(name = "SYM_TF_ACCOUNT")
+@Table(name = "SYM_TF_ACCOUNT", schema = BaseEntity.DB_SCHEMA)
 public class AccountEntity extends BaseEntity<AccountEntity, AccountInfo> {
 
     private OrganizationEntity organization;
@@ -206,7 +206,18 @@ public class AccountEntity extends BaseEntity<AccountEntity, AccountInfo> {
             oInfo.setCode(org.getCode());
             oInfo.setCompany(org.getCompany());
             oInfo.setName(org.getName());
+            oInfo.setCategory(org.getCategory());
             info.setOrg(oInfo);
+
+            info.setProvince(org.getCode());
+            org = org.getParent();
+            while (org != null) {
+                if (org.getCategory() == 1) {
+                    info.setProvince(org.getCode());
+                    break;
+                }
+                org = org.getParent();
+            }
         }
         Set<RoleInfo> roles = new HashSet<>();
         if (this.getRoles() != null)

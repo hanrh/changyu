@@ -54,6 +54,8 @@ public class AccountInfo extends BizInfo {
      */
     protected OrganizationInfo org;
 
+    protected String province;
+
     /**
      * 角色
      */
@@ -129,5 +131,13 @@ public class AccountInfo extends BizInfo {
 
     public void setRoles(Set<RoleInfo> roles) {
         this.roles = roles;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
     }
 }

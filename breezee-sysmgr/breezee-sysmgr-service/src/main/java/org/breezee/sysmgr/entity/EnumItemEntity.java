@@ -15,7 +15,7 @@ import javax.persistence.*;
  * Created by Silence on 2016/5/10.
  */
 @Entity
-@Table(name = "SYM_TF_ENUM_ITEM")
+@Table(name = "SYM_TF_ENUM_ITEM", schema = BaseEntity.DB_SCHEMA)
 public class EnumItemEntity extends BaseEntity<EnumItemEntity, EnumItemInfo> {
 
     private EnumEntity master;

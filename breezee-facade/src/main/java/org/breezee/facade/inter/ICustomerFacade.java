@@ -5,6 +5,7 @@
 package org.breezee.facade.inter;
 
 import org.breezee.common.domain.IFacadeLayer;
+import org.breezee.crm.api.domain.CustomerDlgInfo;
 import org.breezee.crm.api.domain.CustomerInfo;
 import org.breezee.facade.response.Response;
 
@@ -17,4 +18,10 @@ public interface ICustomerFacade extends IFacadeLayer {
     Response<CustomerInfo> pageCustomer(CustomerInfo info);
 
     Response<CustomerInfo> findCustomerById(String id);
+
+    Response<CustomerInfo> saveCustomerDlg(CustomerDlgInfo info);
+
+    Response<CustomerInfo> findAccountCustomer(String accountCode);
+
+    Response<CustomerInfo> delCustomerDlg(String id);
 }

@@ -1,0 +1,77 @@
+<div class="page-header">
+    <div class="pull-left">
+        <h1 class="content-title">代理设置</h1>
+        <ul class="fl">
+            <li>
+                <button class="btn btn-block btn-info newData"><i class="fui-plus-circle icon-menu"></i></i>
+                    <span>代理客户</span>
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="dolphin-col-24 main" id="myContent">
+    <div class="panel panel-primary box">
+        <div class="panel-heading box-title">
+            <h3 class="panel-title">
+                <i class="fa fa-table fa-lg" aria-hidden="true"></i>
+                我的代理
+            </h3>
+        </div>
+        <div id="dataList" class="box-content"></div>
+    </div>
+</div>
+
+<div class="modal" id="data_win">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <span class="modal-title">代理设置</span>
+            </div>
+            <div class="modal-body">
+                <div class="tab-pane">
+                    <form class="form-horizontal edit-form">
+                        <input type="hidden" class="form-control" name="accountCode"
+                               value="<%= session.userData.userCode %>">
+                        <input type="hidden" value="" name="channel">
+                        <div class="form-group">
+                            <label class="col-md-offset-1 col-md-2 control-label">客户编码</label>
+                            <div class="col-md-6">
+                                <input class="form-control" name="customer.id" type="text" dol-validate="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-offset-1 col-md-2 control-label">客户名称</label>
+                            <div class="col-md-6">
+                                <input class="form-control" name="_name" type="text" dol-validate="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-offset-1 col-md-2 control-label">代理类型</label>
+                            <div class="col-md-6">
+                                <select class="form-control" name="delegateType" dol-validate="required">
+                                    <option value="0">全部</option>
+                                    <option value="1">计划</option>
+                                    <option value="2">订单</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn_submit">保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<script src="//cdn.bootcss.com/typeahead.js/0.11.1/bloodhound.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.js"></script>
+<script src="<%= global.config.publicPath %>/page/scripts/<%= path %>.js"></script>

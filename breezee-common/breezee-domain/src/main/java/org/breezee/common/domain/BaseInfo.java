@@ -99,8 +99,9 @@ public class BaseInfo implements Serializable,
     /**
      * 终端设备
      * 一般用来说明此次提交发生在什么类型的设备上
+     * 0:desktop,1:mobile
      */
-    protected Integer equipment;
+    protected Integer equipment = 0;
 
     /**
      * 扩展属性信息

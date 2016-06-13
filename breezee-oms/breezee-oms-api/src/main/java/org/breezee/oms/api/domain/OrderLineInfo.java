@@ -21,4 +21,146 @@ import org.breezee.common.domain.BaseInfo;
  */
 public class OrderLineInfo extends BaseInfo {
 
+    /**
+     * 数量,必须大于0
+     */
+    protected Integer quantity;
+
+    /**
+     * 价格
+     */
+    protected Double price;
+
+    /**
+     * 产品保证金价格
+     */
+    protected Double additionPrice;
+
+    /**
+     * 退货价格，只在退货的时候存在
+     */
+    protected Double returnPrice;
+
+    /**
+     * 单位
+     */
+    protected String unit;
+
+    /**
+     * 产品毛重
+     */
+    protected Double grossWeight;
+
+    /**
+     * 省公司调整的价格，增量值
+     */
+    protected Double adjustPrice;
+
+    /**
+     * 来源：0：计划，1：开放清单
+     */
+    protected Integer source;
+
+    /**
+     * 关联计划行编号，只有在source=0
+     */
+    protected String planLineId;
+
+    /**
+     * 开放清单编号，只有在source=1
+     */
+    protected String productOpenId;
+
+    /**
+     * sap推送的信息，只有在status=uploaded之后才存在
+     */
+    protected SapPushInfo sapPushInfo;
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Double getAdditionPrice() {
+        return additionPrice;
+    }
+
+    public void setAdditionPrice(Double additionPrice) {
+        this.additionPrice = additionPrice;
+    }
+
+    public Double getReturnPrice() {
+        return returnPrice;
+    }
+
+    public void setReturnPrice(Double returnPrice) {
+        this.returnPrice = returnPrice;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public Double getAdjustPrice() {
+        return adjustPrice;
+    }
+
+    public void setAdjustPrice(Double adjustPrice) {
+        this.adjustPrice = adjustPrice;
+    }
+
+    public String getPlanLineId() {
+        return planLineId;
+    }
+
+    public void setPlanLineId(String planLineId) {
+        this.planLineId = planLineId;
+    }
+
+    public String getProductOpenId() {
+        return productOpenId;
+    }
+
+    public void setProductOpenId(String productOpenId) {
+        this.productOpenId = productOpenId;
+    }
+
+    public SapPushInfo getSapPushInfo() {
+        return sapPushInfo;
+    }
+
+    public void setSapPushInfo(SapPushInfo sapPushInfo) {
+        this.sapPushInfo = sapPushInfo;
+    }
+
+    public Double getGrossWeight() {
+        return grossWeight;
+    }
+
+    public void setGrossWeight(Double grossWeight) {
+        this.grossWeight = grossWeight;
+    }
+
+    public Integer getSource() {
+        return source;
+    }
+
+    public void setSource(Integer source) {
+        this.source = source;
+    }
 }

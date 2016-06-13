@@ -17,6 +17,8 @@ import java.util.Date;
  */
 public class BaseEntity<T extends BaseEntity, R extends BaseInfo> extends BizInfo {
 
+    public final static String DB_SCHEMA = "dms_a";
+
 //    @Id
 //    @GeneratedValue(generator = "assigned-uid")
 //    @GenericGenerator(name = "assigned-uid", strategy = "assigned")

@@ -17,7 +17,7 @@ import java.util.Set;
  * Created by Silence on 2016/6/9.
  */
 @Entity
-@Table(name = "PCM_TF_PRODUCT_LIMIT")
+@Table(name = "PCM_TF_PRODUCT_LIMIT", schema = BaseEntity.DB_SCHEMA)
 public class ProductLimitEntity extends BaseEntity<ProductLimitEntity, ProductLimitInfo> {
 
     private Set<ProductCustomerEntity> productCustomerEntitySet;

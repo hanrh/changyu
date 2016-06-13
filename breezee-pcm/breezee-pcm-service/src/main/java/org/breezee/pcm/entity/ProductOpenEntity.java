@@ -16,7 +16,7 @@ import java.util.Date;
  * Created by Silence on 2016/6/10.
  */
 @Entity
-@Table(name = "PCM_TF_PRODUCT_OPEN")
+@Table(name = "PCM_TF_PRODUCT_OPEN", schema = BaseEntity.DB_SCHEMA)
 public class ProductOpenEntity extends BaseEntity<ProductOpenEntity, ProductOpenInfo> {
 
     private ProductEntity product;

@@ -16,7 +16,7 @@ import java.util.Date;
  * Created by Silence on 2016/5/11.
  */
 @Entity
-@Table(name = "SYM_TD_CRONJOB")
+@Table(name = "SYM_TD_CRONJOB", schema = BaseEntity.DB_SCHEMA)
 public class CronJobEntity extends BaseEntity<CronJobEntity, CronJobInfo> {
 
     /**

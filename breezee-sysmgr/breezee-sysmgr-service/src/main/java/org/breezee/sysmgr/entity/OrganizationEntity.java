@@ -21,8 +21,10 @@ import java.util.Set;
  * Created by Silence on 2016/5/10.
  */
 @Entity
-@Table(name = "SYM_TF_ORGANIZATION")
+@Table(name = "SYM_TF_ORGANIZATION", schema = BaseEntity.DB_SCHEMA)
 public class OrganizationEntity extends BaseEntity<OrganizationEntity, OrganizationInfo> {
+
+    private Integer category;
 
     private OrganizationEntity parent;
 
@@ -113,6 +115,15 @@ public class OrganizationEntity extends BaseEntity<OrganizationEntity, Organizat
         this.accounts = accounts;
     }
 
+    @Column(name = "CATEGORY", nullable = false)
+    public Integer getCategory() {
+        return category;
+    }
+
+    public void setCategory(Integer category) {
+        this.category = category;
+    }
+
     @OneToOne
     @JoinColumn(name = "PARENT_ID", referencedColumnName = "ORG_ID")
     public OrganizationEntity getParent() {
@@ -145,7 +156,8 @@ public class OrganizationEntity extends BaseEntity<OrganizationEntity, Organizat
     public OrganizationInfo toInfo(OrganizationInfo info, String... ignore) {
         super.toInfo(info, "parent", "children");
         if (this.getParent() != null) {
-            info.setParent(new OrganizationInfo(getParent().getId(), getParent().getCode(), getParent().getName()));
+            info.setParent(new OrganizationInfo(getParent().getId(), getParent().getCode(), getParent().getName(), getParent().getCategory()));
+            info.getParent().setCompany(getParent().getCompany());
         }
 //        List<OrganizationInfo> l = new ArrayList<>();
 //        this.getChildren().forEach(a -> {

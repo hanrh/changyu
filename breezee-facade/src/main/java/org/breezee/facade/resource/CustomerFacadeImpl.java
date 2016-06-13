@@ -5,6 +5,8 @@
 package org.breezee.facade.resource;
 
 import com.alibaba.dubbo.rpc.protocol.rest.support.ContentType;
+import org.breezee.common.domain.exception.BreezeeException;
+import org.breezee.crm.api.domain.CustomerDlgInfo;
 import org.breezee.crm.api.domain.CustomerInfo;
 import org.breezee.crm.api.service.ICustomerService;
 import org.breezee.facade.inter.ICustomerFacade;
@@ -41,5 +43,33 @@ public class CustomerFacadeImpl extends JsonCommonFacade implements ICustomerFac
     @Override
     public Response<CustomerInfo> findCustomerById(@PathParam("id") String id) {
         return _findOne(customerService, id, 0);
+    }
+
+    @Path("/dlg")
+    @PUT
+    @Override
+    public JsonResponse saveCustomerDlg(CustomerDlgInfo info) {
+        try {
+            customerService.saveCustomerDelegate(info);
+        } catch (BreezeeException e) {
+            e.printStackTrace();
+            return JsonResponse.ERROR(e.getMessage());
+        }
+        return JsonResponse.OK();
+    }
+
+    @Path("/dlg")
+    @GET
+    @Override
+    public JsonResponse findAccountCustomer(@QueryParam("accountCode") String accountCode) {
+        return JsonResponse.build(customerService.accountDelegate(accountCode));
+    }
+
+    @Path("/dlg/{id}")
+    @DELETE
+    @Override
+    public JsonResponse delCustomerDlg(@QueryParam("id") String id) {
+        customerService.delCustomerDlg(id);
+        return JsonResponse.OK();
     }
 }

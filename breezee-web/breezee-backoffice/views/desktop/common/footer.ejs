@@ -10,7 +10,8 @@
         org.breezee.context = {
             contextPath: "<%= global.config.contextPath %>",
             viewPrefix: "<%= global.config.viewPrefix %>",
-            queryData: JSON.parse('<%= JSON.stringify(queryData); %>'.replace(/&#34;/g, '"') || "{}")
+            queryData: JSON.parse('<%= JSON.stringify(queryData); %>'.replace(/&#34;/g, '"') || "{}"),
+            company: "3008"
         };
         Dolphin.path.contextPath = org.breezee.context.contextPath;
         Dolphin.defaults.url.viewPrefix = org.breezee.context.viewPrefix;

@@ -14,6 +14,12 @@ router.use(function timeLog(req, res, next) {
     next();
 });
 
+router.get('/logout', function (req, res, next) {
+    delete req.session.userData;
+    global.log4js.getLogger('http').info('logout...');
+    res.redirect(global.config.contextPath + global.config.viewPrefix + '/login');
+});
+
 /**
  * 实现路由转发
  */

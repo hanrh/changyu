@@ -17,7 +17,7 @@ import java.util.Set;
  * Created by Silence on 2016/5/11.
  */
 @Entity
-@Table(name = "CRM_TF_CUSTOMER_ORG")
+@Table(name = "CRM_TF_CUSTOMER_ORG", schema = BaseEntity.DB_SCHEMA)
 public class CustomerOrgEntity extends BaseEntity<CustomerOrgEntity, CustomerOrgInfo> {
 
     /**

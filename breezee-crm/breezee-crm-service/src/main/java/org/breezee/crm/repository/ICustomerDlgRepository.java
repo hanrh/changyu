@@ -9,10 +9,14 @@ import org.breezee.crm.api.domain.CustomerDlgInfo;
 import org.breezee.crm.entity.CustomerDlgEntity;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 客户代理持久化服务
  * Created by Silence on 2016/6/4.
  */
 @Repository("customerDlgRepository")
 public interface ICustomerDlgRepository extends ICommonRepository<CustomerDlgEntity, CustomerDlgInfo, String> {
+
+    List<CustomerDlgEntity> findByAccountCode(String accountCode);
 }

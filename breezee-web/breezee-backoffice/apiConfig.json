@@ -22,6 +22,7 @@
     "8f6fbf4a5aed48a3adc18eba8e588715": "http://127.0.0.1:3289/services/product/{id}",
     "41d7222ba7f246ceb33daaa4e5c97a0e": "http://127.0.0.1:3289/services/customer/page",
     "ac843b67de424221a24e9962e7281b33": "http://127.0.0.1:3289/services/customer/{id}",
+    "8c436d88d249485d83be59284de17ceb": "http://127.0.0.1:3289/services/customer/dlg",
     "ce3f73c0482a4c98a06429a2e64b5f63": "http://127.0.0.1:3289/services/user/page",
     "4c7b346d00854494aa6b97dd47f965eb": "http://127.0.0.1:3289/services/user/",
     "56eaa61cc42d46f8a49a8cf5aba22d2a": "http://127.0.0.1:3289/services/user/{id}"

@@ -15,17 +15,17 @@ import javax.persistence.*;
  * Created by Silence on 2016/6/4.
  */
 @Entity
-@Table(name = "CRM_TF_CUSTOMER_DLG")
+@Table(name = "CRM_TF_CUSTOMER_DLG", schema = BaseEntity.DB_SCHEMA)
 public class CustomerDlgEntity extends BaseEntity<CustomerDlgEntity, CustomerDlgInfo> {
 
     /**
      * 代理账号
      */
-    protected String accountCode;
+    private String accountCode;
     /**
-     * 代理的类型：计划/订单
+     * 代理的类型：计划/订单/全部
      */
-    protected Integer delegateType;
+    private Integer delegateType;
     /**
      * 客户主体
      */

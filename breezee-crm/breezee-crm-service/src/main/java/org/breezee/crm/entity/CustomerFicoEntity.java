@@ -16,7 +16,7 @@ import javax.persistence.*;
  * Created by Silence on 2016/5/11.
  */
 @Entity
-@Table(name = "CRM_TF_CUSTOMER_FICO")
+@Table(name = "CRM_TF_CUSTOMER_FICO", schema = BaseEntity.DB_SCHEMA)
 public class CustomerFicoEntity extends BaseEntity<CustomerFicoEntity, CustomerFicoInfo> {
 
     private String typeCode;
